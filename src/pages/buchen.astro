@@ -17,6 +17,10 @@ const lang = 'de' as const;
         <p class="text-warm-brown/60 text-sm mb-6">{t(lang, 'booking.fallback')}</p>
         <Button href={`mailto:${siteSettings.email}`} variant="primary">{t(lang, 'booking.emailBtn')}</Button>
       </div>
+      <p class="mt-8 text-warm-brown/60 text-sm">
+        Oder hast du noch Fragen?
+        <a href="/kontakt" class="text-gold hover:text-dark-brown underline underline-offset-2 transition-colors">Schreib mir eine Nachricht</a>
+      </p>
     </div>
   </section>
 </BaseLayout>

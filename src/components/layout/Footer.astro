@@ -30,6 +30,8 @@ const footerLines = t(lang, 'footer.description').split('\n');
             <li><a href={item.href} class="text-cream-dark hover:text-soft-white transition-colors">{item.label}</a></li>
           ))}
           <li><a href={bookingPath} class="text-cream-dark hover:text-soft-white transition-colors">{t(lang, 'nav.book')}</a></li>
+          <li><a href={lang === 'en' ? '/en/contact' : '/kontakt'} class="text-cream-dark hover:text-soft-white transition-colors">{lang === 'en' ? 'Contact' : 'Kontakt'}</a></li>
+          <li><a href={lang === 'en' ? '/en/sound-and-soul' : '/sound-and-soul'} class="text-cream-dark hover:text-soft-white transition-colors">Sound & Soul</a></li>
         </ul>
       </div>
 

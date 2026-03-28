@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
+import Button from '../components/ui/Button.astro';
 import WhatIsReiki from '../components/sections/WhatIsReiki.astro';
 import ReikiComparison from '../components/sections/ReikiComparison.astro';
 import ReikiBenefits from '../components/sections/ReikiBenefits.astro';
@@ -11,10 +12,21 @@ import { t } from '../i18n/index';
 
 <BaseLayout title="Reiki" description="Erfahre was Reiki ist, wie eine Sitzung abläuft und welche Vorteile Reiki für Körper, Geist und Seele hat.">
   <Breadcrumb current="Reiki" />
-  <h1 class="sr-only">Reiki - {t('de', 'whatIsReiki.title')}</h1>
+  <h1 class="sr-only">Reiki</h1>
   <WhatIsReiki />
   <ReikiBenefits />
   <ReikiComparison />
   <AfterSession />
   <Pricing />
+
+  <section class="py-20 px-4 text-center bg-cream-light/50">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic mb-6">{t('de', 'cta.title')}</h2>
+      <p class="text-warm-brown leading-relaxed mb-8">{t('de', 'cta.text')}</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href="/buchen" variant="primary">{t('de', 'cta.bookBtn')}</Button>
+        <Button href="/kontakt">{t('de', 'cta.contactBtn')}</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

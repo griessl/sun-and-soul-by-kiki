@@ -11,6 +11,7 @@ const navItems = getNavItems(lang);
 const bookingPath = getBookingPath(lang);
 const otherLang: Lang = lang === 'de' ? 'en' : 'de';
 const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-sm">
@@ -22,19 +23,22 @@ const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
 
     <!-- Desktop Nav -->
     <ul class="hidden md:flex items-center gap-8">
-      {navItems.map((item) => (
-        <li>
-          <a
-            href={item.href}
-            data-scroll-href={item.scrollHref}
-            class="nav-link text-warm-brown hover:text-dark-brown transition-colors text-sm tracking-wide uppercase"
-            data-nav-item
-            data-section={item.sectionId}
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
+      {navItems.map((item) => {
+        const isActive = currentPath === item.href.replace(/\/$/, '');
+        return (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'nav-link text-sm tracking-wide uppercase transition-colors',
+                isActive ? 'text-dark-brown font-semibold' : 'text-warm-brown hover:text-dark-brown',
+              ]}
+            >
+              {item.label}
+            </a>
+          </li>
+        );
+      })}
       <li>
         <Button href={bookingPath} variant="primary" size="sm">{t(lang, 'nav.book')}</Button>
       </li>
@@ -68,10 +72,7 @@ const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
         <li>
           <a
             href={item.href}
-            data-scroll-href={item.scrollHref}
-            class="nav-link text-warm-brown hover:text-dark-brown transition-colors text-sm tracking-wide uppercase"
-            data-nav-item
-            data-section={item.sectionId}
+            class="text-warm-brown hover:text-dark-brown transition-colors text-sm tracking-wide uppercase"
           >
             {item.label}
           </a>
@@ -95,7 +96,6 @@ const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
 <div class="h-20"></div>
 
 <script>
-  // Mobile menu toggle
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
   btn?.addEventListener('click', () => {
@@ -109,81 +109,19 @@ const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
       btn?.setAttribute('aria-expanded', 'false');
     });
   });
-
-  // On homepage: use scroll hrefs instead of page links
-  const isHomepage = window.location.pathname === '/' || window.location.pathname === '/en' || window.location.pathname === '/en/';
-  if (isHomepage) {
-    document.querySelectorAll('[data-scroll-href]').forEach((link) => {
-      const scrollHref = link.getAttribute('data-scroll-href');
-      if (scrollHref) {
-        link.setAttribute('href', scrollHref);
-      }
-    });
-  }
-
-  // Active section highlighting - scroll-based, no dead zones
-  const navSections = ['home', 'reiki', 'sound-and-soul', 'testimonials', 'ueber-mich'];
-  const navLinks = document.querySelectorAll('[data-nav-item]');
-
-  function setActiveNav(activeSectionId: string) {
-    navLinks.forEach((link) => {
-      const linkSection = link.getAttribute('data-section');
-      const isActive = linkSection === activeSectionId;
-      link.classList.toggle('text-dark-brown', isActive);
-      link.classList.toggle('font-semibold', isActive);
-      if (isActive) {
-        link.classList.remove('text-warm-brown');
-      } else {
-        link.classList.add('text-warm-brown');
-      }
-    });
-  }
-
-  function updateActiveSection() {
-    const scrollY = window.scrollY + window.innerHeight * 0.3;
-    let activeId = navSections[0];
-
-    // Find all sections with nav-matching IDs and pick the one we've scrolled past
-    for (const id of navSections) {
-      const el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollY) {
-        activeId = id;
-      }
-    }
-    setActiveNav(activeId);
-  }
-
-  // Throttled scroll listener
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateActiveSection();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-  updateActiveSection();
 </script>
 
 <style>
-  [data-nav-item] {
+  .nav-link {
     position: relative;
-    transition: color 0.3s ease;
   }
-  [data-nav-item]::after {
+  .nav-link.font-semibold::after {
     content: '';
     position: absolute;
     bottom: -4px;
-    left: 50%;
-    right: 50%;
-    height: 2px;
-    background-color: var(--color-gold);
-    transition: left 0.3s ease, right 0.3s ease;
-  }
-  [data-nav-item].font-semibold::after {
     left: 0;
     right: 0;
+    height: 2px;
+    background-color: var(--color-gold);
   }
 </style>

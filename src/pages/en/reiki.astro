@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import Button from '../../components/ui/Button.astro';
 import WhatIsReiki from '../../components/sections/WhatIsReiki.astro';
 import ReikiComparison from '../../components/sections/ReikiComparison.astro';
 import ReikiBenefits from '../../components/sections/ReikiBenefits.astro';
 import AfterSession from '../../components/sections/AfterSession.astro';
 import Pricing from '../../components/sections/Pricing.astro';
+import { t } from '../../i18n/index';
 ---
 
 <BaseLayout title="Reiki" lang="en" description="Learn what Reiki is, how a session works, and the benefits for body, mind, and soul.">
@@ -16,4 +18,15 @@ import Pricing from '../../components/sections/Pricing.astro';
   <ReikiComparison lang="en" />
   <AfterSession lang="en" />
   <Pricing lang="en" />
+
+  <section class="py-20 px-4 text-center bg-cream-light/50">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic mb-6">{t('en', 'cta.title')}</h2>
+      <p class="text-warm-brown leading-relaxed mb-8">{t('en', 'cta.text')}</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href="/en/book" variant="primary">{t('en', 'cta.bookBtn')}</Button>
+        <Button href="/en/contact">{t('en', 'cta.contactBtn')}</Button>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
