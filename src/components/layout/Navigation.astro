@@ -109,6 +109,68 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       btn?.setAttribute('aria-expanded', 'false');
     });
   });
+
+  // Scroll indicator on homepage: highlight nav items based on visible section
+  const isHomepage = window.location.pathname === '/' || window.location.pathname === '/en' || window.location.pathname === '/en/';
+  if (isHomepage) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    // Map section IDs to nav link hrefs
+    const sectionToNav: Record<string, string> = {
+      'home': '/',
+      'mission': '/',
+      'reiki': '/reiki',
+      'preise': '/reiki',
+      'sound-and-soul': '/',
+      'testimonials': '/',
+      'ueber-mich': '/ueber-mich',
+    };
+    // For EN
+    const isEN = window.location.pathname.startsWith('/en');
+    if (isEN) {
+      sectionToNav['home'] = '/en/';
+      sectionToNav['mission'] = '/en/';
+      sectionToNav['reiki'] = '/en/reiki';
+      sectionToNav['preise'] = '/en/reiki';
+      sectionToNav['sound-and-soul'] = '/en/';
+      sectionToNav['testimonials'] = '/en/';
+      sectionToNav['ueber-mich'] = isEN ? '/en/about' : '/ueber-mich';
+    }
+
+    function setActiveNavLink(href: string) {
+      navLinks.forEach((link) => {
+        const linkHref = link.getAttribute('href')?.replace(/\/$/, '') || '/';
+        const targetHref = href.replace(/\/$/, '') || '/';
+        const isActive = linkHref === targetHref;
+        link.classList.toggle('text-dark-brown', isActive);
+        link.classList.toggle('font-semibold', isActive);
+        if (isActive) link.classList.remove('text-warm-brown');
+        else link.classList.add('text-warm-brown');
+      });
+    }
+
+    function updateScrollIndicator() {
+      const scrollY = window.scrollY + window.innerHeight * 0.3;
+      const sections = document.querySelectorAll('section[id]');
+      let activeHref = isEN ? '/en/' : '/';
+
+      sections.forEach((section) => {
+        const id = section.id;
+        if (section instanceof HTMLElement && section.offsetTop <= scrollY && sectionToNav[id]) {
+          activeHref = sectionToNav[id];
+        }
+      });
+      setActiveNavLink(activeHref);
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { updateScrollIndicator(); ticking = false; });
+        ticking = true;
+      }
+    });
+    updateScrollIndicator();
+  }
 </script>
 
 <style>
