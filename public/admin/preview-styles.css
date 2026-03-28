@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════
-   Preview Styles — Mirrors the real Sun & Soul website
+   Sun & Soul Preview — Real Website Styles
+   Uses Tailwind-equivalent CSS for pixel-accurate preview
    ═══════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
@@ -7,6 +8,7 @@
 :root {
   --cream: #F5F0E8;
   --cream-light: #FAF7F2;
+  --cream-dark: #EDE5D8;
   --warm-brown: #8B6F47;
   --dark-brown: #4A3728;
   --gold: #C4956A;
@@ -14,152 +16,146 @@
   --soft-white: #FEFCF9;
 }
 
-/* Base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
   font-family: 'Lora', Georgia, serif;
   color: var(--warm-brown);
   background-color: var(--cream);
-  padding: 0;
-  margin: 0;
   line-height: 1.75;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
+/* ── Typography ── */
+h1, h2, h3 {
   font-family: 'Playfair Display', Georgia, serif;
   color: var(--dark-brown);
   font-style: italic;
-  line-height: 1.2;
+  line-height: 1.15;
+  font-weight: 400;
 }
 
-h1 { font-size: 2.5rem; margin: 0 0 1.5rem 0; }
-h2 { font-size: 1.75rem; margin: 2rem 0 1rem 0; }
-h3 { font-size: 1.25rem; margin: 1.5rem 0 0.75rem 0; }
+/* ── Section wrapper ── */
+.section { padding: 3rem 1.5rem; max-width: 56rem; margin: 0 auto; }
+.section-alt { background: rgba(250, 247, 242, 0.5); }
+.section-center { text-align: center; }
 
-/* Text */
-p { margin: 0 0 1rem 0; line-height: 1.75; }
-strong, b { color: var(--dark-brown); }
-em, i { font-style: italic; }
+/* ── Section heading (matches SectionHeading.astro) ── */
+.sh { text-align: center; margin-bottom: 2rem; }
+.sh h2 { font-size: 2.25rem; margin-bottom: 0.75rem; }
+.sh-sub { color: var(--warm-brown); font-size: 1.1rem; max-width: 38rem; margin: 0 auto; }
 
-/* Links */
-a { color: var(--gold); text-decoration: underline; text-underline-offset: 2px; }
-a:hover { color: var(--dark-brown); }
+/* ── Tag / eyebrow ── */
+.tag {
+  color: var(--gold);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  font-family: 'Lora', Georgia, serif;
+}
 
-/* Lists */
-ul { list-style: none; padding: 0; margin: 0 0 1rem 0; }
-ul li { padding: 0.25rem 0; display: flex; align-items: flex-start; gap: 0.5rem; }
-ul li::before { content: '•'; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-ol { padding-left: 1.5rem; margin: 0 0 1rem 0; }
-ol li { margin-bottom: 0.5rem; }
+/* ── Buttons (matches Button.astro) ── */
+.btn {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'Lora', Georgia, serif;
+  padding: 0.75rem 2rem;
+  margin: 0.25rem;
+  transition: all 0.2s;
+}
+.btn-primary { background: var(--gold); color: var(--soft-white); }
+.btn-outline { border: 1px solid var(--gold); color: var(--gold); background: transparent; }
+.btn-row { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
 
-/* Images */
-img {
-  max-width: 100%;
+/* ── Cards (matches bg-soft-white/60 backdrop-blur) ── */
+.card {
+  background: rgba(254, 252, 249, 0.6);
+  padding: 2rem;
   border-radius: 2px;
-  margin: 1rem 0;
 }
 
-/* Blockquote */
+/* ── Grid ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+
+/* ── Lists (gold bullets like the site) ── */
+.list { list-style: none; padding: 0; }
+.list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+.list li::before {
+  content: '•';
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Category heading (underlined gold) ── */
+.cat-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  color: var(--dark-brown);
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  text-decoration: underline;
+  text-decoration-color: rgba(196, 149, 106, 0.4);
+  text-underline-offset: 4px;
+}
+
+/* ── Tip block (After Session) ── */
+.tip { text-align: center; margin-bottom: 1.75rem; }
+.tip-title {
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-bottom: 0.35rem;
+}
+
+/* ── Separator ── */
+.sep { border: none; border-top: 1px solid var(--gold-light); margin: 2.5rem 0; }
+
+/* ── Image ── */
+img { max-width: 100%; border-radius: 2px; }
+
+/* ── Blockquote ── */
 blockquote {
   border-left: 3px solid var(--gold);
   padding: 0.5rem 0 0.5rem 1.5rem;
   margin: 1.5rem 0;
   font-style: italic;
-  color: var(--warm-brown);
 }
 
-/* Horizontal rule */
-hr {
-  border: none;
-  border-top: 1px solid var(--gold-light);
-  margin: 2rem 0;
-}
-
-/* ═══════════════════════════════════════
-   Page preview layout
-   ═══════════════════════════════════════ */
-
-/* Section wrapper */
-.preview-section {
-  padding: 2rem;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-/* Card style (for benefits, services) */
-.preview-card {
-  background: rgba(254, 252, 249, 0.6);
-  padding: 1.5rem;
-  border-radius: 2px;
-  margin-bottom: 1rem;
-}
-
-/* Button preview */
-.preview-btn-primary {
-  display: inline-block;
-  background: var(--gold);
-  color: var(--soft-white);
-  padding: 0.75rem 2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-family: 'Lora', Georgia, serif;
-  margin: 0.25rem;
-}
-
-.preview-btn-outline {
-  display: inline-block;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  padding: 0.75rem 2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-family: 'Lora', Georgia, serif;
-  margin: 0.25rem;
-}
-
-/* Tag / label */
-.preview-tag {
-  color: var(--gold);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-/* Subtitle */
-.preview-subtitle {
-  color: var(--warm-brown);
-  font-size: 1.1rem;
+/* ── Responsive info bar ── */
+.responsive-bar {
+  position: sticky;
+  top: 0;
+  background: var(--dark-brown);
+  color: var(--cream-light);
+  padding: 0.5rem 1rem;
+  font-size: 0.7rem;
   text-align: center;
-  margin-bottom: 1.5rem;
+  z-index: 10;
+  font-family: -apple-system, sans-serif;
+  letter-spacing: 0.05em;
 }
 
-/* Centered text */
-.text-center { text-align: center; }
-
-/* Two column grid */
-.preview-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin: 1rem 0;
-}
-
-/* Tip block */
-.preview-tip {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-.preview-tip-title {
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  margin-bottom: 0.25rem;
-  color: var(--warm-brown);
-}
+/* ── Prose (for markdown content in Eigene Seiten) ── */
+.prose p { margin-bottom: 1rem; }
+.prose h2 { font-size: 1.5rem; margin: 2rem 0 0.75rem; }
+.prose h3 { font-size: 1.2rem; margin: 1.5rem 0 0.5rem; }
+.prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+.prose li { margin-bottom: 0.5rem; }
+.prose a { color: var(--gold); text-decoration: underline; }
+.prose strong { color: var(--dark-brown); }
+.prose img { margin: 1rem 0; }

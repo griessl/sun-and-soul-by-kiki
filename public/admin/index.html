@@ -4,83 +4,142 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sun & Soul by Kiki — Admin</title>
+    <style>
+      /* Language toggle in preview toolbar */
+      .preview-toolbar {
+        position: sticky; top: 0; z-index: 100;
+        background: #4A3728; color: #FAF7F2;
+        padding: 6px 16px; font-size: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        display: flex; justify-content: space-between; align-items: center;
+      }
+      .preview-toolbar button {
+        background: transparent; border: 1px solid rgba(250,247,242,0.3);
+        color: #FAF7F2; padding: 3px 12px; font-size: 11px; cursor: pointer;
+        border-radius: 3px; margin-left: 6px; font-family: inherit;
+      }
+      .preview-toolbar button.active {
+        background: #C4956A; border-color: #C4956A; color: white;
+      }
+      .preview-toolbar button:hover { border-color: #C4956A; }
+    </style>
   </head>
   <body>
     <div id="nc-root"></div>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-      // Load preview styles
       CMS.registerPreviewStyle("/admin/preview-styles.css");
 
-      // Helper: get field value safely
+      // ═══ Helpers ═══
       const g = (entry, name) => entry.getIn(['data', name]) || '';
+      const split = (val) => (val || '').split('|').filter(Boolean);
 
-      // ─── Startseite Preview ───
+      // Language-aware field getter: returns DE or EN based on toggle state
+      let currentLang = 'de';
+      const L = (entry, baseName) => {
+        return g(entry, `${baseName}_${currentLang}`);
+      };
+
+      // Toolbar with language + responsive toggles
+      function toolbar(sectionName) {
+        return h('div', { className: 'preview-toolbar' },
+          h('span', {}, `Vorschau: ${sectionName}`),
+          h('div', {},
+            h('button', {
+              className: currentLang === 'de' ? 'active' : '',
+              onClick: () => { currentLang = 'de'; document.querySelectorAll('[data-preview-root]').forEach(el => el.click()); }
+            }, 'DE'),
+            h('button', {
+              className: currentLang === 'en' ? 'active' : '',
+              onClick: () => { currentLang = 'en'; document.querySelectorAll('[data-preview-root]').forEach(el => el.click()); }
+            }, 'EN')
+          )
+        );
+      }
+
+      // ═══ Startseite ═══
       CMS.registerPreviewTemplate('startseite', createClass({
         render() {
           const e = this.props.entry;
-          return h('div', { className: 'preview-section' },
-            h('div', { className: 'text-center' },
-              h('p', { className: 'preview-tag' }, g(e, 'hero_tagline_de')),
-              h('h1', {}, 'Sun & Soul'),
-              h('h1', { style: { marginTop: '-1rem' } }, 'by Kiki'),
-              h('p', { className: 'preview-subtitle' }, g(e, 'hero_subtitle_de')),
+          return h('div', {},
+            toolbar('Startseite'),
+            // Hero
+            h('div', { className: 'section section-center', style: { minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
               h('div', {},
-                h('span', { className: 'preview-btn-primary' }, g(e, 'hero_bookBtn_de')),
-                h('span', { className: 'preview-btn-outline' }, g(e, 'hero_learnMore_de'))
+                h('p', { className: 'tag' }, L(e, 'hero_tagline')),
+                h('h1', { style: { fontSize: '3.5rem', marginBottom: '0.5rem' } }, 'Sun & Soul'),
+                h('h1', { style: { fontSize: '3.5rem', marginTop: 0 } }, 'by Kiki'),
+                h('p', { style: { fontSize: '1.15rem', maxWidth: '32rem', margin: '1.5rem auto', opacity: 0.85 } }, L(e, 'hero_subtitle')),
+                h('div', { className: 'btn-row' },
+                  h('span', { className: 'btn btn-primary' }, L(e, 'hero_bookBtn')),
+                  h('span', { className: 'btn btn-outline' }, L(e, 'hero_learnMore'))
+                )
               )
             ),
-            h('hr'),
-            h('h2', { className: 'text-center' }, g(e, 'mission_title_de')),
-            h('p', {}, g(e, 'mission_p1_de')),
-            h('p', {}, g(e, 'mission_p2_de')),
-            h('p', {}, g(e, 'mission_p3_de')),
-            h('hr'),
-            h('div', { className: 'text-center' },
-              h('h2', {}, g(e, 'cta_title_de')),
-              h('p', {}, g(e, 'cta_text_de')),
-              h('div', {},
-                h('span', { className: 'preview-btn-primary' }, g(e, 'cta_bookBtn_de')),
-                h('span', { className: 'preview-btn-outline' }, g(e, 'cta_contactBtn_de'))
+            // Mission
+            h('div', { className: 'section' },
+              h('div', { className: 'sh' }, h('h2', {}, L(e, 'mission_title'))),
+              h('p', { style: { marginBottom: '1rem' } }, L(e, 'mission_p1')),
+              h('p', { style: { marginBottom: '1rem' } }, L(e, 'mission_p2')),
+              h('p', {}, L(e, 'mission_p3'))
+            ),
+            h('hr', { className: 'sep' }),
+            // CTA
+            h('div', { className: 'section section-center' },
+              h('h2', { style: { fontSize: '2rem', marginBottom: '1rem' } }, L(e, 'cta_title')),
+              h('p', { style: { marginBottom: '1.5rem' } }, L(e, 'cta_text')),
+              h('div', { className: 'btn-row' },
+                h('span', { className: 'btn btn-primary' }, L(e, 'cta_bookBtn')),
+                h('span', { className: 'btn btn-outline' }, L(e, 'cta_contactBtn'))
               )
             )
           );
         }
       }));
 
-      // ─── Was ist Reiki Preview ───
+      // ═══ Was ist Reiki ═══
       CMS.registerPreviewTemplate('was-ist-reiki', createClass({
         render() {
           const e = this.props.entry;
-          return h('div', { className: 'preview-section text-center' },
-            h('h1', {}, g(e, 'whatIsReiki_title_de')),
-            h('p', {}, g(e, 'whatIsReiki_intro_de')),
-            h('p', { style: { fontStyle: 'italic' } }, g(e, 'whatIsReiki_note_de')),
-            h('p', {}, g(e, 'whatIsReiki_body_de')),
-            h('div', { style: { marginTop: '1.5rem' } },
-              h('span', { className: 'preview-btn-primary' }, g(e, 'whatIsReiki_bookBtn_de')),
-              h('span', { className: 'preview-btn-outline' }, g(e, 'whatIsReiki_sessionBtn_de')),
-              h('span', { className: 'preview-btn-outline' }, g(e, 'whatIsReiki_benefitsBtn_de'))
+          return h('div', {},
+            toolbar('Was ist Reiki'),
+            h('div', { className: 'section section-alt section-center' },
+              h('div', { className: 'sh' }, h('h2', {}, L(e, 'whatIsReiki_title'))),
+              h('p', { style: { marginBottom: '1rem' } }, L(e, 'whatIsReiki_intro')),
+              h('p', { style: { fontStyle: 'italic', marginBottom: '1rem' } }, L(e, 'whatIsReiki_note')),
+              h('p', { style: { marginBottom: '2rem' } }, L(e, 'whatIsReiki_body')),
+              h('div', { className: 'btn-row' },
+                h('span', { className: 'btn btn-primary' }, L(e, 'whatIsReiki_bookBtn')),
+                h('span', { className: 'btn btn-outline' }, L(e, 'whatIsReiki_sessionBtn')),
+                h('span', { className: 'btn btn-outline' }, L(e, 'whatIsReiki_benefitsBtn'))
+              )
             )
           );
         }
       }));
 
-      // ─── Vorteile Preview ───
+      // ═══ Vorteile ═══
       CMS.registerPreviewTemplate('vorteile', createClass({
         render() {
           const e = this.props.entry;
-          const splitList = (val) => (val || '').split('|').filter(Boolean);
-          return h('div', { className: 'preview-section text-center' },
-            h('h1', {}, g(e, 'reikiBenefits_title_de')),
-            h('p', { className: 'preview-subtitle' }, g(e, 'reikiBenefits_intro_de')),
-            h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' } },
-              [['reikiBenefits_physical_de', 'reikiBenefits_physicalItems_de'],
-               ['reikiBenefits_emotional_de', 'reikiBenefits_emotionalItems_de'],
-               ['reikiBenefits_mental_de', 'reikiBenefits_mentalItems_de']].map(([title, items]) =>
-                h('div', { className: 'preview-card' },
-                  h('h3', { className: 'text-center' }, g(e, title)),
-                  h('ul', {}, splitList(g(e, items)).map(item => h('li', {}, item)))
+          const cats = [
+            ['reikiBenefits_physical', 'reikiBenefits_physicalItems'],
+            ['reikiBenefits_emotional', 'reikiBenefits_emotionalItems'],
+            ['reikiBenefits_mental', 'reikiBenefits_mentalItems'],
+          ];
+          return h('div', {},
+            toolbar('Vorteile von Reiki'),
+            h('div', { className: 'section section-alt' },
+              h('div', { className: 'sh' }, h('h2', {}, L(e, 'reikiBenefits_title'))),
+              h('p', { className: 'section-center', style: { marginBottom: '2rem', maxWidth: '42rem', margin: '0 auto 2rem' } }, L(e, 'reikiBenefits_intro')),
+              h('div', { className: 'grid-3' },
+                ...cats.map(([titleKey, itemsKey]) =>
+                  h('div', { className: 'card' },
+                    h('div', { className: 'cat-title' }, L(e, titleKey)),
+                    h('ul', { className: 'list' },
+                      ...split(L(e, itemsKey)).map(item => h('li', {}, item))
+                    )
+                  )
                 )
               )
             )
@@ -88,120 +147,189 @@
         }
       }));
 
-      // ─── Vergleich Preview ───
+      // ═══ Vergleich ═══
       CMS.registerPreviewTemplate('vergleich', createClass({
         render() {
           const e = this.props.entry;
-          return h('div', { className: 'preview-section' },
-            h('h1', { className: 'text-center' }, g(e, 'comparison_title_de')),
-            h('div', { className: 'preview-grid' },
-              h('div', { className: 'preview-card' },
-                h('h3', { className: 'text-center' }, g(e, 'comparison_reikiTitle_de')),
-                h('p', {}, g(e, 'comparison_reikiBody_de'))
-              ),
-              h('div', { className: 'preview-card' },
-                h('h3', { className: 'text-center' }, g(e, 'comparison_remoteTitle_de')),
-                h('p', {}, g(e, 'comparison_remoteBody_de'))
+          return h('div', {},
+            toolbar('Reiki vs Fern-Reiki'),
+            h('div', { className: 'section section-alt' },
+              h('div', { className: 'sh' }, h('h2', {}, L(e, 'comparison_title'))),
+              h('div', { className: 'grid-2' },
+                h('div', { className: 'card' },
+                  h('h3', { style: { textAlign: 'center', fontSize: '1.4rem', marginBottom: '1rem' } }, L(e, 'comparison_reikiTitle')),
+                  h('p', {}, L(e, 'comparison_reikiBody'))
+                ),
+                h('div', { className: 'card' },
+                  h('h3', { style: { textAlign: 'center', fontSize: '1.4rem', marginBottom: '1rem' } }, L(e, 'comparison_remoteTitle')),
+                  h('p', {}, L(e, 'comparison_remoteBody'))
+                )
               )
             )
           );
         }
       }));
 
-      // ─── Nach der Session Preview ───
+      // ═══ Nach der Session ═══
       CMS.registerPreviewTemplate('nach-der-session', createClass({
         render() {
           const e = this.props.entry;
           const tips = ['rest', 'journal', 'movement', 'water', 'calm'];
-          return h('div', { className: 'preview-section text-center' },
-            h('h1', {}, g(e, 'afterSession_title_de')),
-            h('p', { className: 'preview-subtitle' }, g(e, 'afterSession_subtitle_de')),
-            ...tips.map(tip =>
-              h('div', { className: 'preview-tip' },
-                h('div', { className: 'preview-tip-title' }, g(e, `afterSession_${tip}_de`)),
-                h('p', {}, g(e, `afterSession_${tip}Desc_de`))
+          return h('div', {},
+            toolbar('Nach der Session'),
+            h('div', { className: 'section section-alt' },
+              h('div', { className: 'sh' },
+                h('h2', {}, L(e, 'afterSession_title')),
+                h('p', { className: 'sh-sub' }, L(e, 'afterSession_subtitle'))
+              ),
+              ...tips.map(tip =>
+                h('div', { className: 'tip' },
+                  h('div', { className: 'tip-title' }, L(e, `afterSession_${tip}`)),
+                  h('p', { style: { maxWidth: '36rem', margin: '0 auto' } }, L(e, `afterSession_${tip}Desc`))
+                )
               )
             )
           );
         }
       }));
 
-      // ─── Sound & Soul Preview ───
+      // ═══ Sound & Soul ═══
       CMS.registerPreviewTemplate('sound-and-soul', createClass({
         render() {
           const e = this.props.entry;
-          return h('div', { className: 'preview-section text-center' },
-            h('p', { className: 'preview-tag' }, g(e, 'soundAndSoul_comingSoon_de')),
-            h('h1', {}, g(e, 'soundAndSoul_title_de')),
-            h('p', { className: 'preview-subtitle' }, g(e, 'soundAndSoul_subtitle_de')),
-            h('p', {}, g(e, 'soundAndSoul_p1_de')),
-            h('p', {}, g(e, 'soundAndSoul_p2_de')),
-            h('div', { style: { marginTop: '1.5rem' } },
-              h('span', { className: 'preview-btn-primary' }, g(e, 'soundAndSoul_bookBtn_de'))
+          return h('div', {},
+            toolbar('Sound & Soul'),
+            h('div', { className: 'section section-center' },
+              h('p', { className: 'tag' }, L(e, 'soundAndSoul_comingSoon')),
+              h('div', { className: 'sh' },
+                h('h2', {}, L(e, 'soundAndSoul_title')),
+                h('p', { className: 'sh-sub' }, L(e, 'soundAndSoul_subtitle'))
+              ),
+              h('p', { style: { marginBottom: '1rem' } }, L(e, 'soundAndSoul_p1')),
+              h('p', { style: { marginBottom: '2rem' } }, L(e, 'soundAndSoul_p2')),
+              h('div', { className: 'btn-row' },
+                h('span', { className: 'btn btn-primary' }, L(e, 'soundAndSoul_bookBtn'))
+              )
             )
           );
         }
       }));
 
-      // ─── Über mich Intro Preview ───
+      // ═══ Über mich - Intro ═══
       CMS.registerPreviewTemplate('ueber-mich-intro', createClass({
         render() {
           const e = this.props.entry;
-          return h('div', { className: 'preview-section' },
-            h('p', { className: 'preview-tag' }, g(e, 'about_tagline_de')),
-            h('h1', {}, g(e, 'about_greeting_de')),
-            h('p', {}, g(e, 'about_intro1_de')),
-            h('p', {}, g(e, 'about_intro2_de'))
+          return h('div', {},
+            toolbar('Über mich — Einführung'),
+            h('div', { className: 'section' },
+              h('p', { className: 'tag' }, L(e, 'about_tagline')),
+              h('h1', { style: { fontSize: '2.75rem' } }, L(e, 'about_greeting')),
+              h('p', { style: { marginTop: '1rem', marginBottom: '0.75rem' } }, L(e, 'about_intro1')),
+              h('p', {}, L(e, 'about_intro2'))
+            )
           );
         }
       }));
 
-      // ─── Mein Weg Preview ───
+      // ═══ Mein Weg ═══
       CMS.registerPreviewTemplate('mein-weg', createClass({
         render() {
           const e = this.props.entry;
-          return h('div', { className: 'preview-section' },
-            h('h1', { className: 'text-center' }, g(e, 'about_storyTitle_de')),
-            ...[1,2,3,4,5].map(i => h('p', {}, g(e, `about_story${i}_de`)))
+          return h('div', {},
+            toolbar('Mein Weg zum Reiki'),
+            h('div', { className: 'section section-alt' },
+              h('div', { className: 'sh' }, h('h2', {}, L(e, 'about_storyTitle'))),
+              ...[1,2,3,4,5].map(i =>
+                h('p', { style: { marginBottom: '1rem' } }, L(e, `about_story${i}`))
+              )
+            )
           );
         }
       }));
 
-      // ─── Persönliches Preview ───
+      // ═══ Persönliches ═══
       CMS.registerPreviewTemplate('persoenliches', createClass({
         render() {
           const e = this.props.entry;
-          const splitList = (val) => (val || '').split('|').filter(Boolean);
-          return h('div', { className: 'preview-section' },
-            h('h1', { className: 'text-center' }, g(e, 'about_factsTitle_de')),
-            h('div', { className: 'preview-grid' },
-              h('div', { className: 'preview-card' },
-                h('h3', {}, g(e, 'about_passionsTitle_de')),
-                h('ul', {}, splitList(g(e, 'about_passions_de')).map(i => h('li', {}, i)))
-              ),
-              h('div', { className: 'preview-card' },
-                h('h3', {}, g(e, 'about_joysTitle_de')),
-                h('ul', {}, splitList(g(e, 'about_joys_de')).map(i => h('li', {}, i)))
+          return h('div', {},
+            toolbar('Persönliches'),
+            h('div', { className: 'section' },
+              h('div', { className: 'sh' }, h('h2', {}, L(e, 'about_factsTitle'))),
+              h('div', { className: 'grid-2' },
+                h('div', { className: 'card' },
+                  h('h3', { style: { fontSize: '1.15rem', marginBottom: '1rem' } }, L(e, 'about_passionsTitle')),
+                  h('ul', { className: 'list' },
+                    ...split(L(e, 'about_passions')).map(i => h('li', {}, i))
+                  )
+                ),
+                h('div', { className: 'card' },
+                  h('h3', { style: { fontSize: '1.15rem', marginBottom: '1rem' } }, L(e, 'about_joysTitle')),
+                  h('ul', { className: 'list' },
+                    ...split(L(e, 'about_joys')).map(i => h('li', {}, i))
+                  )
+                )
               )
             ),
-            h('hr'),
-            h('h2', { className: 'text-center' }, g(e, 'about_valuesTitle_de')),
-            h('p', { className: 'text-center' }, g(e, 'about_values1_de')),
-            h('p', { className: 'text-center' }, g(e, 'about_values2_de')),
-            h('p', { className: 'text-center' }, g(e, 'about_values3_de'))
+            h('div', { className: 'section section-alt section-center' },
+              h('div', { className: 'sh' }, h('h2', {}, L(e, 'about_valuesTitle'))),
+              h('p', { style: { marginBottom: '1rem' } }, L(e, 'about_values1')),
+              h('p', { style: { marginBottom: '1rem' } }, L(e, 'about_values2')),
+              h('p', {}, L(e, 'about_values3'))
+            )
           );
         }
       }));
 
-      // ─── Eigene Seiten Preview ───
+      // ═══ Eigene Seiten ═══
       CMS.registerPreviewTemplate('neue-seiten', createClass({
         render() {
           const e = this.props.entry;
           const img = g(e, 'image');
-          return h('div', { className: 'preview-section' },
-            img ? h('img', { src: img, style: { width: '100%', height: '250px', objectFit: 'cover', borderRadius: '2px' } }) : null,
-            h('h1', { className: 'text-center' }, g(e, 'title_de')),
-            h('div', {}, this.props.widgetFor('body_de'))
+          const alt = g(e, 'image_alt');
+          return h('div', {},
+            toolbar('Eigene Seite'),
+            img ? h('img', { src: img, alt: alt, style: { width: '100%', height: '300px', objectFit: 'cover' } }) : null,
+            h('div', { className: 'section section-center' },
+              h('h1', { style: { fontSize: '2.75rem', marginBottom: '1.5rem' } }, L(e, 'title')),
+              h('div', { className: 'prose' }, this.props.widgetFor(`body_${currentLang}`))
+            )
+          );
+        }
+      }));
+
+      // ═══ Kundenstimmen ═══
+      CMS.registerPreviewTemplate('testimonials', createClass({
+        render() {
+          const e = this.props.entry;
+          return h('div', {},
+            toolbar('Kundenstimme'),
+            h('div', { className: 'section' },
+              h('div', { className: 'card', style: { textAlign: 'center', padding: '2.5rem' } },
+                h('p', { style: { fontStyle: 'italic', fontSize: '1.1rem', marginBottom: '1rem' } },
+                  '\u201C', g(e, 'text_de'), '\u201D'
+                ),
+                h('p', { style: { color: '#C4956A', fontSize: '0.8rem', letterSpacing: '0.1em', textTransform: 'uppercase' } }, g(e, 'name'))
+              )
+            )
+          );
+        }
+      }));
+
+      // ═══ Angebote & Preise ═══
+      CMS.registerPreviewTemplate('services', createClass({
+        render() {
+          const e = this.props.entry;
+          return h('div', {},
+            toolbar('Angebot'),
+            h('div', { className: 'section' },
+              h('div', { className: 'card', style: { textAlign: 'center' } },
+                h('h3', { style: { fontSize: '1.5rem', marginBottom: '0.5rem' } }, g(e, 'name_de')),
+                h('p', { style: { color: '#C4956A', fontSize: '1.75rem', fontFamily: "'Playfair Display', serif", marginBottom: '0.25rem' } }, g(e, 'price'), ' €'),
+                h('p', { style: { opacity: 0.6, fontSize: '0.85rem', marginBottom: '1.25rem' } }, g(e, 'duration'), ' Minuten'),
+                h('p', { style: { fontSize: '0.9rem', marginBottom: '1.5rem' } }, g(e, 'description_de')),
+                h('span', { className: 'btn btn-primary' }, 'Termin buchen')
+              )
+            )
           );
         }
       }));
