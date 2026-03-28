@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/ui/SectionHeading.astro';
 import Button from '../../components/ui/Button.astro';
 import { t } from '../../i18n/index';
+import siteSettings from '../../content/settings/site.json';
 
 const lang = 'en' as const;
 ---
@@ -14,7 +15,7 @@ const lang = 'en' as const;
       <div class="bg-soft-white/60 backdrop-blur-sm p-12 rounded-sm">
         <p class="text-warm-brown mb-6">{t(lang, 'booking.placeholder')}</p>
         <p class="text-warm-brown/60 text-sm mb-6">{t(lang, 'booking.fallback')}</p>
-        <Button href="mailto:hello@sunandsoulbykiki.de" variant="primary">{t(lang, 'booking.emailBtn')}</Button>
+        <Button href={`mailto:${siteSettings.email}`} variant="primary">{t(lang, 'booking.emailBtn')}</Button>
       </div>
     </div>
   </section>
