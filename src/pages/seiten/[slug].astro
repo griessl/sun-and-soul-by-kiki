@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages
+    .filter(p => p.data.published)
+    .map(p => ({ params: { slug: p.data.slug }, props: { page: p } }));
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title={page.data.title_de} description={page.data.title_de}>
+  <section class="py-20 px-4">
+    <div class="mx-auto max-w-3xl">
+      {page.data.image && (
+        <div class="mb-10 rounded-sm overflow-hidden">
+          <img src={page.data.image} alt={page.data.title_de} class="w-full h-64 md:h-96 object-cover" loading="eager" />
+        </div>
+      )}
+      <h1 class="font-heading text-4xl md:text-5xl text-dark-brown italic mb-8 text-center">{page.data.title_de}</h1>
+      <div class="prose-warm" set:html={page.data.body_de} />
+    </div>
+  </section>
+</BaseLayout>

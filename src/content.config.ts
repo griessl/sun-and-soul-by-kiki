@@ -25,4 +25,17 @@ const services = defineCollection({
   }),
 });
 
-export const collections = { testimonials, services };
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
+  schema: z.object({
+    title_de: z.string(),
+    title_en: z.string(),
+    slug: z.string(),
+    body_de: z.string().optional(),
+    body_en: z.string().optional(),
+    image: z.string().optional(),
+    published: z.boolean().default(false),
+  }),
+});
+
+export const collections = { testimonials, services, pages };

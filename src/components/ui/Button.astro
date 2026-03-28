@@ -2,17 +2,22 @@
 interface Props {
   href: string;
   variant?: 'primary' | 'outline';
+  size?: 'default' | 'sm';
 }
 
-const { href, variant = 'outline' } = Astro.props;
+const { href, variant = 'outline', size = 'default' } = Astro.props;
 
-const baseClasses = 'inline-block px-8 py-3 text-sm tracking-wider uppercase transition-colors font-body';
+const baseClasses = 'inline-block text-sm tracking-wider uppercase transition-colors font-body';
+const sizes = {
+  default: 'px-8 py-3',
+  sm: 'px-6 py-2.5',
+};
 const variants = {
   primary: 'bg-gold text-soft-white hover:bg-gold-light hover:text-dark-brown',
   outline: 'border border-gold text-gold hover:bg-gold hover:text-soft-white',
 };
 ---
 
-<a href={href} class={`${baseClasses} ${variants[variant]}`}>
+<a href={href} class={`${baseClasses} ${sizes[size]} ${variants[variant]}`}>
   <slot />
 </a>

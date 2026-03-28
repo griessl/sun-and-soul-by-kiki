@@ -1,24 +1,30 @@
 // Load all section content files
 import startseite from '../content/texts/01-startseite.json';
-import reiki from '../content/texts/02-reiki.json';
+import wasIstReiki from '../content/texts/02a-was-ist-reiki.json';
+import vorteile from '../content/texts/02b-vorteile.json';
+import vergleich from '../content/texts/02c-vergleich.json';
+import nachDerSession from '../content/texts/02d-nach-der-session.json';
 import soundAndSoul from '../content/texts/03-sound-and-soul.json';
-import ueberMich from '../content/texts/04-ueber-mich.json';
+import ueberMichIntro from '../content/texts/04a-ueber-mich-intro.json';
+import meinWeg from '../content/texts/04b-mein-weg.json';
+import persoenliches from '../content/texts/04c-persoenliches.json';
 import buchungKontakt from '../content/texts/05-buchung-kontakt.json';
 import navFooter from '../content/texts/06-navigation-footer.json';
 
 export type Lang = 'de' | 'en';
 
 // Build translation maps from content files
-// Each content file has keys like "hero_tagline_de" / "hero_tagline_en"
-// We transform them into "hero.tagline" -> value for each lang
 function buildTranslations(lang: Lang): Record<string, string> {
   const suffix = `_${lang}`;
   const result: Record<string, string> = {};
-  const allContent = { ...startseite, ...reiki, ...soundAndSoul, ...ueberMich, ...buchungKontakt, ...navFooter } as Record<string, string>;
+  const allContent = {
+    ...startseite, ...wasIstReiki, ...vorteile, ...vergleich,
+    ...nachDerSession, ...soundAndSoul, ...ueberMichIntro,
+    ...meinWeg, ...persoenliches, ...buchungKontakt, ...navFooter,
+  } as Record<string, string>;
 
   for (const [key, value] of Object.entries(allContent)) {
     if (key.endsWith(suffix)) {
-      // Convert "hero_tagline_de" -> "hero.tagline"
       const cleanKey = key.slice(0, -suffix.length).replace(/_/g, '.');
       result[cleanKey] = value;
     }
@@ -41,12 +47,10 @@ export function t(lang: Lang, key: string): string {
   return translations[lang]?.[key] ?? translations['de']?.[key] ?? key;
 }
 
-/** Split pipe-delimited translation strings into arrays */
 export function tList(lang: Lang, key: string): string[] {
   return t(lang, key).split('|');
 }
 
-/** Mapping of German slugs to English slugs */
 const slugMap: Record<string, string> = {
   '/': '/en',
   '/reiki': '/en/reiki',
@@ -63,7 +67,6 @@ const reverseSlugMap: Record<string, string> = Object.fromEntries(
   Object.entries(slugMap).map(([de, en]) => [en, de])
 );
 
-/** Get the equivalent path in the other language */
 export function getLocalizedPath(currentPath: string, targetLang: Lang): string {
   const cleanPath = currentPath.replace(/\/$/, '') || '/';
   if (targetLang === 'en') {
@@ -72,7 +75,6 @@ export function getLocalizedPath(currentPath: string, targetLang: Lang): string 
   return reverseSlugMap[cleanPath] ?? (cleanPath.replace(/^\/en/, '') || '/');
 }
 
-/** Get nav items for a given language */
 export function getNavItems(lang: Lang) {
   const prefix = lang === 'en' ? '/en' : '';
   return [
