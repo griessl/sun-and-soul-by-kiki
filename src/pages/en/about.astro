@@ -3,12 +3,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/ui/SectionHeading.astro';
 import Button from '../../components/ui/Button.astro';
 import Principles from '../../components/sections/Principles.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import { t, tList } from '../../i18n/index';
 
 const lang = 'en' as const;
 ---
 
 <BaseLayout title="About me" lang="en" description="Meet Kiki — Certified Reiki practitioner in Berlin.">
+  <Breadcrumb current="About me" lang="en" />
 
   <section class="py-20 px-4">
     <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">

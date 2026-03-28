@@ -1,0 +1,22 @@
+---
+import type { Lang } from '../../i18n/index';
+
+interface Props {
+  current: string;
+  lang?: Lang;
+}
+
+const { current, lang = 'de' } = Astro.props;
+const homeHref = lang === 'en' ? '/en' : '/';
+const homeLabel = lang === 'en' ? 'Home' : 'Home';
+---
+
+<nav class="mx-auto max-w-6xl px-4 pt-4 pb-0" aria-label="Breadcrumb">
+  <ol class="flex items-center gap-2 text-sm text-warm-brown/60">
+    <li>
+      <a href={homeHref} class="hover:text-dark-brown transition-colors">{homeLabel}</a>
+    </li>
+    <li class="text-gold">/</li>
+    <li class="text-warm-brown">{current}</li>
+  </ol>
+</nav>

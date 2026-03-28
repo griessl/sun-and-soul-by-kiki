@@ -77,12 +77,13 @@ export function getLocalizedPath(currentPath: string, targetLang: Lang): string 
 
 export function getNavItems(lang: Lang) {
   const prefix = lang === 'en' ? '/en' : '';
+  const home = `${prefix}/`;
   return [
-    { label: t(lang, 'nav.home'), href: `${prefix}/`, sectionId: 'home' },
-    { label: t(lang, 'nav.reiki'), href: `${prefix}/reiki`, sectionId: 'reiki' },
-    { label: t(lang, 'nav.soundAndSoul'), href: `${prefix}/sound-and-soul`, sectionId: 'sound-and-soul' },
-    { label: t(lang, 'nav.testimonials'), href: `${prefix}/testimonials`, sectionId: 'testimonials' },
-    { label: t(lang, 'nav.about'), href: lang === 'en' ? '/en/about' : '/ueber-mich', sectionId: 'ueber-mich' },
+    { label: t(lang, 'nav.home'), href: home, scrollHref: `${home}#home`, sectionId: 'home' },
+    { label: t(lang, 'nav.reiki'), href: `${prefix}/reiki`, scrollHref: `${home}#reiki`, sectionId: 'reiki' },
+    { label: t(lang, 'nav.soundAndSoul'), href: `${home}#sound-and-soul`, scrollHref: `${home}#sound-and-soul`, sectionId: 'sound-and-soul' },
+    { label: t(lang, 'nav.testimonials'), href: `${home}#testimonials`, scrollHref: `${home}#testimonials`, sectionId: 'testimonials' },
+    { label: t(lang, 'nav.about'), href: lang === 'en' ? '/en/about' : '/ueber-mich', scrollHref: `${home}#ueber-mich`, sectionId: 'ueber-mich' },
   ];
 }
 
