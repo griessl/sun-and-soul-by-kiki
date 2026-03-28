@@ -9,8 +9,202 @@
     <div id="nc-root"></div>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-      // Load preview styles so the preview looks like the real website
+      // Load preview styles
       CMS.registerPreviewStyle("/admin/preview-styles.css");
+
+      // Helper: get field value safely
+      const g = (entry, name) => entry.getIn(['data', name]) || '';
+
+      // ─── Startseite Preview ───
+      CMS.registerPreviewTemplate('startseite', createClass({
+        render() {
+          const e = this.props.entry;
+          return h('div', { className: 'preview-section' },
+            h('div', { className: 'text-center' },
+              h('p', { className: 'preview-tag' }, g(e, 'hero_tagline_de')),
+              h('h1', {}, 'Sun & Soul'),
+              h('h1', { style: { marginTop: '-1rem' } }, 'by Kiki'),
+              h('p', { className: 'preview-subtitle' }, g(e, 'hero_subtitle_de')),
+              h('div', {},
+                h('span', { className: 'preview-btn-primary' }, g(e, 'hero_bookBtn_de')),
+                h('span', { className: 'preview-btn-outline' }, g(e, 'hero_learnMore_de'))
+              )
+            ),
+            h('hr'),
+            h('h2', { className: 'text-center' }, g(e, 'mission_title_de')),
+            h('p', {}, g(e, 'mission_p1_de')),
+            h('p', {}, g(e, 'mission_p2_de')),
+            h('p', {}, g(e, 'mission_p3_de')),
+            h('hr'),
+            h('div', { className: 'text-center' },
+              h('h2', {}, g(e, 'cta_title_de')),
+              h('p', {}, g(e, 'cta_text_de')),
+              h('div', {},
+                h('span', { className: 'preview-btn-primary' }, g(e, 'cta_bookBtn_de')),
+                h('span', { className: 'preview-btn-outline' }, g(e, 'cta_contactBtn_de'))
+              )
+            )
+          );
+        }
+      }));
+
+      // ─── Was ist Reiki Preview ───
+      CMS.registerPreviewTemplate('was-ist-reiki', createClass({
+        render() {
+          const e = this.props.entry;
+          return h('div', { className: 'preview-section text-center' },
+            h('h1', {}, g(e, 'whatIsReiki_title_de')),
+            h('p', {}, g(e, 'whatIsReiki_intro_de')),
+            h('p', { style: { fontStyle: 'italic' } }, g(e, 'whatIsReiki_note_de')),
+            h('p', {}, g(e, 'whatIsReiki_body_de')),
+            h('div', { style: { marginTop: '1.5rem' } },
+              h('span', { className: 'preview-btn-primary' }, g(e, 'whatIsReiki_bookBtn_de')),
+              h('span', { className: 'preview-btn-outline' }, g(e, 'whatIsReiki_sessionBtn_de')),
+              h('span', { className: 'preview-btn-outline' }, g(e, 'whatIsReiki_benefitsBtn_de'))
+            )
+          );
+        }
+      }));
+
+      // ─── Vorteile Preview ───
+      CMS.registerPreviewTemplate('vorteile', createClass({
+        render() {
+          const e = this.props.entry;
+          const splitList = (val) => (val || '').split('|').filter(Boolean);
+          return h('div', { className: 'preview-section text-center' },
+            h('h1', {}, g(e, 'reikiBenefits_title_de')),
+            h('p', { className: 'preview-subtitle' }, g(e, 'reikiBenefits_intro_de')),
+            h('div', { style: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' } },
+              [['reikiBenefits_physical_de', 'reikiBenefits_physicalItems_de'],
+               ['reikiBenefits_emotional_de', 'reikiBenefits_emotionalItems_de'],
+               ['reikiBenefits_mental_de', 'reikiBenefits_mentalItems_de']].map(([title, items]) =>
+                h('div', { className: 'preview-card' },
+                  h('h3', { className: 'text-center' }, g(e, title)),
+                  h('ul', {}, splitList(g(e, items)).map(item => h('li', {}, item)))
+                )
+              )
+            )
+          );
+        }
+      }));
+
+      // ─── Vergleich Preview ───
+      CMS.registerPreviewTemplate('vergleich', createClass({
+        render() {
+          const e = this.props.entry;
+          return h('div', { className: 'preview-section' },
+            h('h1', { className: 'text-center' }, g(e, 'comparison_title_de')),
+            h('div', { className: 'preview-grid' },
+              h('div', { className: 'preview-card' },
+                h('h3', { className: 'text-center' }, g(e, 'comparison_reikiTitle_de')),
+                h('p', {}, g(e, 'comparison_reikiBody_de'))
+              ),
+              h('div', { className: 'preview-card' },
+                h('h3', { className: 'text-center' }, g(e, 'comparison_remoteTitle_de')),
+                h('p', {}, g(e, 'comparison_remoteBody_de'))
+              )
+            )
+          );
+        }
+      }));
+
+      // ─── Nach der Session Preview ───
+      CMS.registerPreviewTemplate('nach-der-session', createClass({
+        render() {
+          const e = this.props.entry;
+          const tips = ['rest', 'journal', 'movement', 'water', 'calm'];
+          return h('div', { className: 'preview-section text-center' },
+            h('h1', {}, g(e, 'afterSession_title_de')),
+            h('p', { className: 'preview-subtitle' }, g(e, 'afterSession_subtitle_de')),
+            ...tips.map(tip =>
+              h('div', { className: 'preview-tip' },
+                h('div', { className: 'preview-tip-title' }, g(e, `afterSession_${tip}_de`)),
+                h('p', {}, g(e, `afterSession_${tip}Desc_de`))
+              )
+            )
+          );
+        }
+      }));
+
+      // ─── Sound & Soul Preview ───
+      CMS.registerPreviewTemplate('sound-and-soul', createClass({
+        render() {
+          const e = this.props.entry;
+          return h('div', { className: 'preview-section text-center' },
+            h('p', { className: 'preview-tag' }, g(e, 'soundAndSoul_comingSoon_de')),
+            h('h1', {}, g(e, 'soundAndSoul_title_de')),
+            h('p', { className: 'preview-subtitle' }, g(e, 'soundAndSoul_subtitle_de')),
+            h('p', {}, g(e, 'soundAndSoul_p1_de')),
+            h('p', {}, g(e, 'soundAndSoul_p2_de')),
+            h('div', { style: { marginTop: '1.5rem' } },
+              h('span', { className: 'preview-btn-primary' }, g(e, 'soundAndSoul_bookBtn_de'))
+            )
+          );
+        }
+      }));
+
+      // ─── Über mich Intro Preview ───
+      CMS.registerPreviewTemplate('ueber-mich-intro', createClass({
+        render() {
+          const e = this.props.entry;
+          return h('div', { className: 'preview-section' },
+            h('p', { className: 'preview-tag' }, g(e, 'about_tagline_de')),
+            h('h1', {}, g(e, 'about_greeting_de')),
+            h('p', {}, g(e, 'about_intro1_de')),
+            h('p', {}, g(e, 'about_intro2_de'))
+          );
+        }
+      }));
+
+      // ─── Mein Weg Preview ───
+      CMS.registerPreviewTemplate('mein-weg', createClass({
+        render() {
+          const e = this.props.entry;
+          return h('div', { className: 'preview-section' },
+            h('h1', { className: 'text-center' }, g(e, 'about_storyTitle_de')),
+            ...[1,2,3,4,5].map(i => h('p', {}, g(e, `about_story${i}_de`)))
+          );
+        }
+      }));
+
+      // ─── Persönliches Preview ───
+      CMS.registerPreviewTemplate('persoenliches', createClass({
+        render() {
+          const e = this.props.entry;
+          const splitList = (val) => (val || '').split('|').filter(Boolean);
+          return h('div', { className: 'preview-section' },
+            h('h1', { className: 'text-center' }, g(e, 'about_factsTitle_de')),
+            h('div', { className: 'preview-grid' },
+              h('div', { className: 'preview-card' },
+                h('h3', {}, g(e, 'about_passionsTitle_de')),
+                h('ul', {}, splitList(g(e, 'about_passions_de')).map(i => h('li', {}, i)))
+              ),
+              h('div', { className: 'preview-card' },
+                h('h3', {}, g(e, 'about_joysTitle_de')),
+                h('ul', {}, splitList(g(e, 'about_joys_de')).map(i => h('li', {}, i)))
+              )
+            ),
+            h('hr'),
+            h('h2', { className: 'text-center' }, g(e, 'about_valuesTitle_de')),
+            h('p', { className: 'text-center' }, g(e, 'about_values1_de')),
+            h('p', { className: 'text-center' }, g(e, 'about_values2_de')),
+            h('p', { className: 'text-center' }, g(e, 'about_values3_de'))
+          );
+        }
+      }));
+
+      // ─── Eigene Seiten Preview ───
+      CMS.registerPreviewTemplate('neue-seiten', createClass({
+        render() {
+          const e = this.props.entry;
+          const img = g(e, 'image');
+          return h('div', { className: 'preview-section' },
+            img ? h('img', { src: img, style: { width: '100%', height: '250px', objectFit: 'cover', borderRadius: '2px' } }) : null,
+            h('h1', { className: 'text-center' }, g(e, 'title_de')),
+            h('div', {}, this.props.widgetFor('body_de'))
+          );
+        }
+      }));
     </script>
   </body>
 </html>

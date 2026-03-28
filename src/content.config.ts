@@ -31,9 +31,12 @@ const pages = defineCollection({
     title_de: z.string(),
     title_en: z.string(),
     slug: z.string(),
+    description_de: z.string().optional(),
+    description_en: z.string().optional(),
     body_de: z.string().optional(),
     body_en: z.string().optional(),
     image: z.string().optional(),
+    image_alt: z.string().optional(),
     published: z.boolean().default(false),
   }),
 });

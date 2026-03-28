@@ -325,24 +325,61 @@ collections:
       - { label: "Aktiv (auf der Website sichtbar)", name: "active", widget: "boolean", default: true, hint: "Ausschalten um das Angebot vorübergehend zu verstecken" }
 
   # ═══════════════════════════════════════
-  # NEUE SEITEN
+  # EIGENE SEITEN
   # ═══════════════════════════════════════
   - name: "neue-seiten"
     label: "Eigene Seiten"
     label_singular: "Seite"
-    description: "Erstelle eigene neue Seiten für deine Website."
+    description: "Erstelle eigene neue Seiten für deine Website. Perfekt für neue Angebote, Blog-Beiträge oder Informationsseiten."
     folder: "src/content/pages"
     create: true
     slug: "{{slug}}"
-    summary: "{{title_de}}"
+    summary: "{{title_de}} {{if published}}✓{{else}}(Entwurf){{/if}}"
+    sortable_fields: ['title_de', 'published']
     fields:
-      - { label: "Seitentitel (Deutsch)", name: "title_de", widget: "string", hint: "Wird als Überschrift und im Browser-Tab angezeigt" }
-      - { label: "Page Title (English)", name: "title_en", widget: "string" }
-      - { label: "URL-Pfad", name: "slug", widget: "string", hint: "Nur Kleinbuchstaben und Bindestriche. z.B. mein-neues-angebot" }
-      - { label: "Inhalt (Deutsch)", name: "body_de", widget: "markdown", hint: "Dein Seiteninhalt. Du kannst Überschriften, Listen, fetten Text und Bilder verwenden." }
-      - { label: "Content (English)", name: "body_en", widget: "markdown" }
-      - { label: "Bild (optional)", name: "image", widget: "image", required: false, hint: "Ein Bild das oben auf der Seite angezeigt wird" }
-      - { label: "Veröffentlicht", name: "published", widget: "boolean", default: false, hint: "Einschalten damit die Seite auf der Website sichtbar wird" }
+      - label: "Seitentitel (Deutsch)"
+        name: "title_de"
+        widget: "string"
+        hint: "Die große Überschrift deiner Seite."
+      - label: "Page Title (English)"
+        name: "title_en"
+        widget: "string"
+      - label: "URL-Pfad"
+        name: "slug"
+        widget: "string"
+        pattern: ['^[a-z0-9-]+$', 'Nur Kleinbuchstaben, Zahlen und Bindestriche erlaubt']
+        hint: "Wird Teil der Web-Adresse. z.B. 'sound-healing' ergibt sunandsoulbykiki.de/seiten/sound-healing"
+      - label: "Beschreibung für Google"
+        name: "description_de"
+        widget: "text"
+        required: false
+        hint: "1-2 Sätze die in Google-Suchergebnissen angezeigt werden."
+      - label: "Description for Google"
+        name: "description_en"
+        widget: "text"
+        required: false
+      - label: "Titelbild"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "Ein breites Bild das oben auf der Seite angezeigt wird. Querformat funktioniert am besten."
+      - label: "Bildbeschreibung (Alt-Text)"
+        name: "image_alt"
+        widget: "string"
+        required: false
+        hint: "Beschreibe was auf dem Bild zu sehen ist. Beispiel: 'Kiki bei einer Reiki-Session in ihrem Studio in Berlin'. Wichtig für Barrierefreiheit und Google."
+      - label: "Inhalt (Deutsch)"
+        name: "body_de"
+        widget: "markdown"
+        hint: "Dein Seiteninhalt. Nutze die Toolbar oben für Überschriften (H2, H3), fetten Text, Listen und Bilder."
+      - label: "Content (English)"
+        name: "body_en"
+        widget: "markdown"
+      - label: "Veröffentlicht"
+        name: "published"
+        widget: "boolean"
+        default: false
+        hint: "Erst einschalten wenn du mit der Seite zufrieden bist. Solange aus, ist die Seite nur hier im Editor sichtbar."
 
   # ═══════════════════════════════════════
   # EINSTELLUNGEN

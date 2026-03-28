@@ -8,7 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "cms": "npx decap-server & astro dev",
-    "build": "astro build",
+    "build": "node scripts/optimize-images.mjs && astro build",
+    "optimize-images": "node scripts/optimize-images.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -20,6 +21,7 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
-    "decap-server": "^3.6.0"
+    "decap-server": "^3.6.0",
+    "sharp": "^0.34.5"
   }
 }
