@@ -39,7 +39,7 @@
           }
         },
           h('span', { style: { fontWeight: '500' } }, sectionName),
-          h('div', { style: { display: 'flex', gap: '6px' } },
+          h('div', { style: { display: 'flex', gap: '6px', marginRight: '80px' } },
             h('button', { onClick: () => { window.__lang = 'de'; component.forceUpdate(); }, style: btnStyle(isDE) }, 'Deutsch'),
             h('button', { onClick: () => { window.__lang = 'en'; component.forceUpdate(); }, style: btnStyle(!isDE) }, 'English')
           )
