@@ -26,5 +26,7 @@
   "contact_messagePlaceholder_de": "Deine Nachricht...",
   "contact_messagePlaceholder_en": "Your message...",
   "contact_sendBtn_de": "Nachricht senden",
-  "contact_sendBtn_en": "Send message"
+  "contact_sendBtn_en": "Send message",
+  "contact_emailSubject_de": "Neue Nachricht von Sun & Soul Website",
+  "contact_emailSubject_en": "New message from Sun & Soul Website"
 }

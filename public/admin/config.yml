@@ -348,7 +348,7 @@ collections:
         name: "slug"
         widget: "string"
         pattern: ['^[a-z0-9-]+$', 'Nur Kleinbuchstaben, Zahlen und Bindestriche erlaubt']
-        hint: "Wird Teil der Web-Adresse. z.B. 'sound-healing' ergibt sunandsoulbykiki.de/seiten/sound-healing"
+        hint: "Wird Teil der Web-Adresse. z.B. 'sound-healing' ergibt sunandsoulbykiki.de/sound-healing"
       - label: "Beschreibung für Google"
         name: "description_de"
         widget: "text"
