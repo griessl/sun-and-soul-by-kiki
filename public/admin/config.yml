@@ -1,0 +1,318 @@
+local_backend: true
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+locale: "de"
+
+collections:
+  # ═══════════════════════════════════════════════
+  # SEITENINHALTE - Alle Texte der Website
+  # ═══════════════════════════════════════════════
+  - name: "seiteninhalte"
+    label: "Seiteninhalte"
+    files:
+
+      # ─── Startseite ───
+      - label: "Startseite (Hero, Mission, CTA)"
+        name: "startseite"
+        file: "src/content/texts/01-startseite.json"
+        fields:
+          - { label: "── HERO BEREICH ──", name: "_hero_divider", widget: "hidden" }
+          - { label: "Tagline (DE)", name: "hero_tagline_de", widget: "string" }
+          - { label: "Tagline (EN)", name: "hero_tagline_en", widget: "string" }
+          - { label: "Untertitel (DE)", name: "hero_subtitle_de", widget: "text" }
+          - { label: "Subtitle (EN)", name: "hero_subtitle_en", widget: "text" }
+          - { label: "Button: Buchen (DE)", name: "hero_bookBtn_de", widget: "string" }
+          - { label: "Button: Book (EN)", name: "hero_bookBtn_en", widget: "string" }
+          - { label: "Button: Mehr erfahren (DE)", name: "hero_learnMore_de", widget: "string" }
+          - { label: "Button: Learn more (EN)", name: "hero_learnMore_en", widget: "string" }
+          - { label: "── MEINE MISSION ──", name: "_mission_divider", widget: "hidden" }
+          - { label: "Titel Mission (DE)", name: "mission_title_de", widget: "string" }
+          - { label: "Title Mission (EN)", name: "mission_title_en", widget: "string" }
+          - { label: "Mission Text 1 (DE)", name: "mission_p1_de", widget: "text" }
+          - { label: "Mission Text 1 (EN)", name: "mission_p1_en", widget: "text" }
+          - { label: "Mission Text 2 (DE)", name: "mission_p2_de", widget: "text" }
+          - { label: "Mission Text 2 (EN)", name: "mission_p2_en", widget: "text" }
+          - { label: "Mission Text 3 (DE)", name: "mission_p3_de", widget: "text" }
+          - { label: "Mission Text 3 (EN)", name: "mission_p3_en", widget: "text" }
+          - { label: "── CTA BEREICH ──", name: "_cta_divider", widget: "hidden" }
+          - { label: "CTA Titel (DE)", name: "cta_title_de", widget: "string" }
+          - { label: "CTA Title (EN)", name: "cta_title_en", widget: "string" }
+          - { label: "CTA Text (DE)", name: "cta_text_de", widget: "text" }
+          - { label: "CTA Text (EN)", name: "cta_text_en", widget: "text" }
+          - { label: "CTA Button: Buchen (DE)", name: "cta_bookBtn_de", widget: "string" }
+          - { label: "CTA Button: Book (EN)", name: "cta_bookBtn_en", widget: "string" }
+          - { label: "CTA Button: Kontakt (DE)", name: "cta_contactBtn_de", widget: "string" }
+          - { label: "CTA Button: Contact (EN)", name: "cta_contactBtn_en", widget: "string" }
+
+      # ─── Reiki ───
+      - label: "Reiki (Alle Reiki-Texte)"
+        name: "reiki"
+        file: "src/content/texts/02-reiki.json"
+        fields:
+          - { label: "── WAS IST REIKI ──", name: "_what_divider", widget: "hidden" }
+          - { label: "Titel (DE)", name: "whatIsReiki_title_de", widget: "string" }
+          - { label: "Title (EN)", name: "whatIsReiki_title_en", widget: "string" }
+          - { label: "Einleitung (DE)", name: "whatIsReiki_intro_de", widget: "text" }
+          - { label: "Introduction (EN)", name: "whatIsReiki_intro_en", widget: "text" }
+          - { label: "Hinweis kursiv (DE)", name: "whatIsReiki_note_de", widget: "text" }
+          - { label: "Note italic (EN)", name: "whatIsReiki_note_en", widget: "text" }
+          - { label: "Haupttext (DE)", name: "whatIsReiki_body_de", widget: "text" }
+          - { label: "Main text (EN)", name: "whatIsReiki_body_en", widget: "text" }
+          - { label: "Button: Buchen (DE)", name: "whatIsReiki_bookBtn_de", widget: "string" }
+          - { label: "Button: Book (EN)", name: "whatIsReiki_bookBtn_en", widget: "string" }
+          - { label: "Button: Ablauf (DE)", name: "whatIsReiki_sessionBtn_de", widget: "string" }
+          - { label: "Button: Session flow (EN)", name: "whatIsReiki_sessionBtn_en", widget: "string" }
+          - { label: "Button: Vorteile (DE)", name: "whatIsReiki_benefitsBtn_de", widget: "string" }
+          - { label: "Button: Benefits (EN)", name: "whatIsReiki_benefitsBtn_en", widget: "string" }
+          - { label: "── VORTEILE VON REIKI ──", name: "_benefits_divider", widget: "hidden" }
+          - { label: "Titel Vorteile (DE)", name: "benefits_title_de", widget: "string" }
+          - { label: "Title Benefits (EN)", name: "benefits_title_en", widget: "string" }
+          - { label: "Einleitung Vorteile (DE)", name: "benefits_intro_de", widget: "text" }
+          - { label: "Introduction Benefits (EN)", name: "benefits_intro_en", widget: "text" }
+          - { label: "Kategorie: Körperlich (DE)", name: "benefits_physical_de", widget: "string" }
+          - { label: "Category: Physical (EN)", name: "benefits_physical_en", widget: "string" }
+          - { label: "Körperliche Vorteile (DE) - getrennt mit |", name: "benefits_physicalItems_de", widget: "text", hint: "Vorteile mit | trennen, z.B.: Kann Schmerzen lindern|Verbessert den Schlaf" }
+          - { label: "Physical benefits (EN) - separated by |", name: "benefits_physicalItems_en", widget: "text", hint: "Separate with |, e.g.: May relieve pain|Improves sleep" }
+          - { label: "Kategorie: Emotional (DE)", name: "benefits_emotional_de", widget: "string" }
+          - { label: "Category: Emotional (EN)", name: "benefits_emotional_en", widget: "string" }
+          - { label: "Emotionale Vorteile (DE) - getrennt mit |", name: "benefits_emotionalItems_de", widget: "text" }
+          - { label: "Emotional benefits (EN) - separated by |", name: "benefits_emotionalItems_en", widget: "text" }
+          - { label: "Kategorie: Mental (DE)", name: "benefits_mental_de", widget: "string" }
+          - { label: "Category: Mental (EN)", name: "benefits_mental_en", widget: "string" }
+          - { label: "Mentale Vorteile (DE) - getrennt mit |", name: "benefits_mentalItems_de", widget: "text" }
+          - { label: "Mental benefits (EN) - separated by |", name: "benefits_mentalItems_en", widget: "text" }
+          - { label: "── REIKI VS FERN-REIKI ──", name: "_comp_divider", widget: "hidden" }
+          - { label: "Titel Vergleich (DE)", name: "comparison_title_de", widget: "string" }
+          - { label: "Title Comparison (EN)", name: "comparison_title_en", widget: "string" }
+          - { label: "Reiki vor Ort - Titel (DE)", name: "comparison_reikiTitle_de", widget: "string" }
+          - { label: "In-Person - Title (EN)", name: "comparison_reikiTitle_en", widget: "string" }
+          - { label: "Reiki vor Ort - Text (DE)", name: "comparison_reikiBody_de", widget: "text" }
+          - { label: "In-Person - Text (EN)", name: "comparison_reikiBody_en", widget: "text" }
+          - { label: "Fern-Reiki - Titel (DE)", name: "comparison_remoteTitle_de", widget: "string" }
+          - { label: "Distance Reiki - Title (EN)", name: "comparison_remoteTitle_en", widget: "string" }
+          - { label: "Fern-Reiki - Text (DE)", name: "comparison_remoteBody_de", widget: "text" }
+          - { label: "Distance Reiki - Text (EN)", name: "comparison_remoteBody_en", widget: "text" }
+          - { label: "── NACH DER SESSION ──", name: "_after_divider", widget: "hidden" }
+          - { label: "Titel (DE)", name: "afterSession_title_de", widget: "string" }
+          - { label: "Title (EN)", name: "afterSession_title_en", widget: "string" }
+          - { label: "Untertitel (DE)", name: "afterSession_subtitle_de", widget: "string" }
+          - { label: "Subtitle (EN)", name: "afterSession_subtitle_en", widget: "string" }
+          - { label: "Tipp 1: Ruhe (DE)", name: "afterSession_rest_de", widget: "string" }
+          - { label: "Tip 1: Rest (EN)", name: "afterSession_rest_en", widget: "string" }
+          - { label: "Beschreibung Ruhe (DE)", name: "afterSession_restDesc_de", widget: "text" }
+          - { label: "Description Rest (EN)", name: "afterSession_restDesc_en", widget: "text" }
+          - { label: "Tipp 2: Tagebuch (DE)", name: "afterSession_journal_de", widget: "string" }
+          - { label: "Tip 2: Journal (EN)", name: "afterSession_journal_en", widget: "string" }
+          - { label: "Beschreibung Tagebuch (DE)", name: "afterSession_journalDesc_de", widget: "text" }
+          - { label: "Description Journal (EN)", name: "afterSession_journalDesc_en", widget: "text" }
+          - { label: "Tipp 3: Bewegung (DE)", name: "afterSession_movement_de", widget: "string" }
+          - { label: "Tip 3: Movement (EN)", name: "afterSession_movement_en", widget: "string" }
+          - { label: "Beschreibung Bewegung (DE)", name: "afterSession_movementDesc_de", widget: "text" }
+          - { label: "Description Movement (EN)", name: "afterSession_movementDesc_en", widget: "text" }
+          - { label: "Tipp 4: Wasser (DE)", name: "afterSession_water_de", widget: "string" }
+          - { label: "Tip 4: Water (EN)", name: "afterSession_water_en", widget: "string" }
+          - { label: "Beschreibung Wasser (DE)", name: "afterSession_waterDesc_de", widget: "text" }
+          - { label: "Description Water (EN)", name: "afterSession_waterDesc_en", widget: "text" }
+          - { label: "Tipp 5: Überreizung (DE)", name: "afterSession_calm_de", widget: "string" }
+          - { label: "Tip 5: Overstimulation (EN)", name: "afterSession_calm_en", widget: "string" }
+          - { label: "Beschreibung Überreizung (DE)", name: "afterSession_calmDesc_de", widget: "text" }
+          - { label: "Description Overstimulation (EN)", name: "afterSession_calmDesc_en", widget: "text" }
+
+      # ─── Sound & Soul ───
+      - label: "Sound & Soul"
+        name: "sound-and-soul"
+        file: "src/content/texts/03-sound-and-soul.json"
+        fields:
+          - { label: "Titel (DE)", name: "soundAndSoul_title_de", widget: "string" }
+          - { label: "Title (EN)", name: "soundAndSoul_title_en", widget: "string" }
+          - { label: "Untertitel (DE)", name: "soundAndSoul_subtitle_de", widget: "string" }
+          - { label: "Subtitle (EN)", name: "soundAndSoul_subtitle_en", widget: "string" }
+          - { label: "Text 1 (DE)", name: "soundAndSoul_p1_de", widget: "text" }
+          - { label: "Text 1 (EN)", name: "soundAndSoul_p1_en", widget: "text" }
+          - { label: "Text 2 (DE)", name: "soundAndSoul_p2_de", widget: "text" }
+          - { label: "Text 2 (EN)", name: "soundAndSoul_p2_en", widget: "text" }
+          - { label: "Button: Buchen (DE)", name: "soundAndSoul_bookBtn_de", widget: "string" }
+          - { label: "Button: Book (EN)", name: "soundAndSoul_bookBtn_en", widget: "string" }
+          - { label: "── COMING SOON ──", name: "_coming_divider", widget: "hidden" }
+          - { label: "Coming Soon Label (DE)", name: "soundAndSoul_comingSoon_de", widget: "string" }
+          - { label: "Coming Soon Label (EN)", name: "soundAndSoul_comingSoon_en", widget: "string" }
+          - { label: "Coming Soon Text (DE)", name: "soundAndSoul_comingText_de", widget: "text" }
+          - { label: "Coming Soon Text (EN)", name: "soundAndSoul_comingText_en", widget: "text" }
+          - { label: "Button: Kontakt (DE)", name: "soundAndSoul_contactBtn_de", widget: "string" }
+          - { label: "Button: Contact (EN)", name: "soundAndSoul_contactBtn_en", widget: "string" }
+
+      # ─── Über mich ───
+      - label: "Über mich"
+        name: "ueber-mich"
+        file: "src/content/texts/04-ueber-mich.json"
+        fields:
+          - { label: "── EINFÜHRUNG ──", name: "_intro_divider", widget: "hidden" }
+          - { label: "Tagline (DE)", name: "about_tagline_de", widget: "string" }
+          - { label: "Tagline (EN)", name: "about_tagline_en", widget: "string" }
+          - { label: "Begrüßung (DE)", name: "about_greeting_de", widget: "string" }
+          - { label: "Greeting (EN)", name: "about_greeting_en", widget: "string" }
+          - { label: "Intro Text 1 (DE)", name: "about_intro1_de", widget: "text" }
+          - { label: "Intro Text 1 (EN)", name: "about_intro1_en", widget: "text" }
+          - { label: "Intro Text 2 (DE)", name: "about_intro2_de", widget: "text" }
+          - { label: "Intro Text 2 (EN)", name: "about_intro2_en", widget: "text" }
+          - { label: "── MEIN WEG ZUM REIKI ──", name: "_story_divider", widget: "hidden" }
+          - { label: "Titel (DE)", name: "about_storyTitle_de", widget: "string" }
+          - { label: "Title (EN)", name: "about_storyTitle_en", widget: "string" }
+          - { label: "Geschichte Absatz 1 (DE)", name: "about_story1_de", widget: "text" }
+          - { label: "Story Paragraph 1 (EN)", name: "about_story1_en", widget: "text" }
+          - { label: "Geschichte Absatz 2 (DE)", name: "about_story2_de", widget: "text" }
+          - { label: "Story Paragraph 2 (EN)", name: "about_story2_en", widget: "text" }
+          - { label: "Geschichte Absatz 3 (DE)", name: "about_story3_de", widget: "text" }
+          - { label: "Story Paragraph 3 (EN)", name: "about_story3_en", widget: "text" }
+          - { label: "Geschichte Absatz 4 (DE)", name: "about_story4_de", widget: "text" }
+          - { label: "Story Paragraph 4 (EN)", name: "about_story4_en", widget: "text" }
+          - { label: "Geschichte Absatz 5 (DE)", name: "about_story5_de", widget: "text" }
+          - { label: "Story Paragraph 5 (EN)", name: "about_story5_en", widget: "text" }
+          - { label: "── PERSÖNLICHES ──", name: "_facts_divider", widget: "hidden" }
+          - { label: "Titel Persönliches (DE)", name: "about_factsTitle_de", widget: "string" }
+          - { label: "Title Personal (EN)", name: "about_factsTitle_en", widget: "string" }
+          - { label: "Leidenschaften Titel (DE)", name: "about_passionsTitle_de", widget: "string" }
+          - { label: "Passions Title (EN)", name: "about_passionsTitle_en", widget: "string" }
+          - { label: "Leidenschaften (DE) - getrennt mit |", name: "about_passions_de", widget: "text", hint: "Einträge mit | trennen" }
+          - { label: "Passions (EN) - separated by |", name: "about_passions_en", widget: "text", hint: "Separate entries with |" }
+          - { label: "Kleine Freuden Titel (DE)", name: "about_joysTitle_de", widget: "string" }
+          - { label: "Little Joys Title (EN)", name: "about_joysTitle_en", widget: "string" }
+          - { label: "Kleine Freuden (DE) - getrennt mit |", name: "about_joys_de", widget: "text", hint: "Einträge mit | trennen" }
+          - { label: "Little Joys (EN) - separated by |", name: "about_joys_en", widget: "text", hint: "Separate entries with |" }
+          - { label: "── WONACH ICH LEBE ──", name: "_values_divider", widget: "hidden" }
+          - { label: "Titel (DE)", name: "about_valuesTitle_de", widget: "string" }
+          - { label: "Title (EN)", name: "about_valuesTitle_en", widget: "string" }
+          - { label: "Absatz 1 (DE)", name: "about_values1_de", widget: "text" }
+          - { label: "Paragraph 1 (EN)", name: "about_values1_en", widget: "text" }
+          - { label: "Absatz 2 (DE)", name: "about_values2_de", widget: "text" }
+          - { label: "Paragraph 2 (EN)", name: "about_values2_en", widget: "text" }
+          - { label: "Absatz 3 (DE)", name: "about_values3_de", widget: "text" }
+          - { label: "Paragraph 3 (EN)", name: "about_values3_en", widget: "text" }
+
+      # ─── Buchung & Kontakt ───
+      - label: "Buchung & Kontakt"
+        name: "buchung-kontakt"
+        file: "src/content/texts/05-buchung-kontakt.json"
+        fields:
+          - { label: "── BUCHUNGSSEITE ──", name: "_book_divider", widget: "hidden" }
+          - { label: "Titel Buchung (DE)", name: "booking_title_de", widget: "string" }
+          - { label: "Title Booking (EN)", name: "booking_title_en", widget: "string" }
+          - { label: "Untertitel Buchung (DE)", name: "booking_subtitle_de", widget: "string" }
+          - { label: "Subtitle Booking (EN)", name: "booking_subtitle_en", widget: "string" }
+          - { label: "Platzhalter-Text (DE)", name: "booking_placeholder_de", widget: "text" }
+          - { label: "Placeholder text (EN)", name: "booking_placeholder_en", widget: "text" }
+          - { label: "Fallback-Text (DE)", name: "booking_fallback_de", widget: "text" }
+          - { label: "Fallback text (EN)", name: "booking_fallback_en", widget: "text" }
+          - { label: "Button: E-Mail (DE)", name: "booking_emailBtn_de", widget: "string" }
+          - { label: "Button: Email (EN)", name: "booking_emailBtn_en", widget: "string" }
+          - { label: "── KONTAKTSEITE ──", name: "_contact_divider", widget: "hidden" }
+          - { label: "Titel Kontakt (DE)", name: "contact_title_de", widget: "string" }
+          - { label: "Title Contact (EN)", name: "contact_title_en", widget: "string" }
+          - { label: "Untertitel Kontakt (DE)", name: "contact_subtitle_de", widget: "string" }
+          - { label: "Subtitle Contact (EN)", name: "contact_subtitle_en", widget: "string" }
+          - { label: "Feld: Name (DE)", name: "contact_name_de", widget: "string" }
+          - { label: "Field: Name (EN)", name: "contact_name_en", widget: "string" }
+          - { label: "Platzhalter Name (DE)", name: "contact_namePlaceholder_de", widget: "string" }
+          - { label: "Placeholder Name (EN)", name: "contact_namePlaceholder_en", widget: "string" }
+          - { label: "Feld: E-Mail (DE)", name: "contact_email_de", widget: "string" }
+          - { label: "Field: Email (EN)", name: "contact_email_en", widget: "string" }
+          - { label: "Platzhalter E-Mail (DE)", name: "contact_emailPlaceholder_de", widget: "string" }
+          - { label: "Placeholder Email (EN)", name: "contact_emailPlaceholder_en", widget: "string" }
+          - { label: "Feld: Nachricht (DE)", name: "contact_message_de", widget: "string" }
+          - { label: "Field: Message (EN)", name: "contact_message_en", widget: "string" }
+          - { label: "Platzhalter Nachricht (DE)", name: "contact_messagePlaceholder_de", widget: "string" }
+          - { label: "Placeholder Message (EN)", name: "contact_messagePlaceholder_en", widget: "string" }
+          - { label: "Button: Senden (DE)", name: "contact_sendBtn_de", widget: "string" }
+          - { label: "Button: Send (EN)", name: "contact_sendBtn_en", widget: "string" }
+
+      # ─── Navigation & Footer ───
+      - label: "Navigation & Footer"
+        name: "nav-footer"
+        file: "src/content/texts/06-navigation-footer.json"
+        fields:
+          - { label: "── NAVIGATION ──", name: "_nav_divider", widget: "hidden" }
+          - { label: "Home (DE)", name: "nav_home_de", widget: "string" }
+          - { label: "Home (EN)", name: "nav_home_en", widget: "string" }
+          - { label: "Reiki (DE)", name: "nav_reiki_de", widget: "string" }
+          - { label: "Reiki (EN)", name: "nav_reiki_en", widget: "string" }
+          - { label: "Sound & Soul (DE)", name: "nav_soundAndSoul_de", widget: "string" }
+          - { label: "Sound & Soul (EN)", name: "nav_soundAndSoul_en", widget: "string" }
+          - { label: "Testimonials (DE)", name: "nav_testimonials_de", widget: "string" }
+          - { label: "Testimonials (EN)", name: "nav_testimonials_en", widget: "string" }
+          - { label: "Über mich (DE)", name: "nav_about_de", widget: "string" }
+          - { label: "About me (EN)", name: "nav_about_en", widget: "string" }
+          - { label: "Button: Buchen (DE)", name: "nav_book_de", widget: "string" }
+          - { label: "Button: Book (EN)", name: "nav_book_en", widget: "string" }
+          - { label: "── TESTIMONIALS SEKTION ──", name: "_test_divider", widget: "hidden" }
+          - { label: "Testimonials Titel (DE)", name: "testimonials_title_de", widget: "string" }
+          - { label: "Testimonials Title (EN)", name: "testimonials_title_en", widget: "string" }
+          - { label: "Testimonials Untertitel (DE)", name: "testimonials_subtitle_de", widget: "string" }
+          - { label: "Testimonials Subtitle (EN)", name: "testimonials_subtitle_en", widget: "string" }
+          - { label: "── FOOTER ──", name: "_footer_divider", widget: "hidden" }
+          - { label: "Footer Beschreibung (DE)", name: "footer_description_de", widget: "text" }
+          - { label: "Footer Description (EN)", name: "footer_description_en", widget: "text" }
+          - { label: "Footer: Seiten (DE)", name: "footer_pages_de", widget: "string" }
+          - { label: "Footer: Pages (EN)", name: "footer_pages_en", widget: "string" }
+          - { label: "Footer: Kontakt (DE)", name: "footer_contact_de", widget: "string" }
+          - { label: "Footer: Contact (EN)", name: "footer_contact_en", widget: "string" }
+
+  # ═══════════════════════════════════════════════
+  # TESTIMONIALS
+  # ═══════════════════════════════════════════════
+  - name: "testimonials"
+    label: "Testimonials"
+    folder: "src/content/testimonials"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Text (Deutsch)", name: "text_de", widget: "text" }
+      - { label: "Text (English)", name: "text_en", widget: "text" }
+      - { label: "Datum", name: "date", widget: "datetime" }
+
+  # ═══════════════════════════════════════════════
+  # SERVICES & PREISE
+  # ═══════════════════════════════════════════════
+  - name: "services"
+    label: "Services & Preise"
+    folder: "src/content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Name (Deutsch)", name: "name_de", widget: "string" }
+      - { label: "Name (English)", name: "name_en", widget: "string" }
+      - { label: "Beschreibung (Deutsch)", name: "description_de", widget: "text" }
+      - { label: "Description (English)", name: "description_en", widget: "text" }
+      - { label: "Dauer (Minuten)", name: "duration", widget: "number" }
+      - { label: "Preis (EUR)", name: "price", widget: "number" }
+      - label: "Typ"
+        name: "type"
+        widget: "select"
+        options:
+          - { label: "Reiki", value: "reiki" }
+          - { label: "Fern-Reiki", value: "remote-reiki" }
+          - { label: "Sound & Soul", value: "sound-and-soul" }
+      - { label: "Aktiv", name: "active", widget: "boolean", default: true }
+
+  # ═══════════════════════════════════════════════
+  # EINSTELLUNGEN
+  # ═══════════════════════════════════════════════
+  - name: "settings"
+    label: "Einstellungen"
+    files:
+      - label: "Website-Einstellungen"
+        name: "site"
+        file: "src/content/settings/site.json"
+        fields:
+          - { label: "E-Mail", name: "email", widget: "string" }
+          - { label: "Instagram Handle", name: "instagram", widget: "string" }
+          - { label: "Instagram URL", name: "instagramUrl", widget: "string" }
+          - { label: "Standort", name: "location", widget: "string", default: "Berlin" }
+          - { label: "Cal.com Booking URL", name: "calcomUrl", widget: "string", required: false }
+          - { label: "Web3Forms Access Key", name: "web3formsKey", widget: "string", required: false }

@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+---
+
+<BaseLayout title="Kontakt" description="Kontaktiere Kiki für Fragen rund um Reiki und Sound & Soul Sessions.">
+  <section class="py-20 px-4">
+    <div class="mx-auto max-w-2xl">
+      <SectionHeading
+        title="Kontakt"
+        subtitle="Hast du Fragen? Schreib mir gerne!"
+      />
+
+      <form
+        action="https://api.web3forms.com/submit"
+        method="POST"
+        class="space-y-6"
+      >
+        <!-- Web3Forms Access Key - replace with real key -->
+        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+        <input type="hidden" name="subject" value="Neue Nachricht von Sun & Soul Website" />
+        <input type="hidden" name="from_name" value="Sun & Soul by Kiki" />
+        <input type="checkbox" name="botcheck" class="hidden" />
+
+        <div>
+          <label for="name" class="block text-warm-brown text-sm tracking-wider uppercase mb-2">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full px-4 py-3 bg-soft-white/60 border border-cream-dark focus:border-gold focus:outline-none text-warm-brown placeholder-warm-brown/40"
+            placeholder="Dein Name"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-warm-brown text-sm tracking-wider uppercase mb-2">E-Mail</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full px-4 py-3 bg-soft-white/60 border border-cream-dark focus:border-gold focus:outline-none text-warm-brown placeholder-warm-brown/40"
+            placeholder="deine@email.de"
+          />
+        </div>
+
+        <div>
+          <label for="message" class="block text-warm-brown text-sm tracking-wider uppercase mb-2">Nachricht</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows="5"
+            class="w-full px-4 py-3 bg-soft-white/60 border border-cream-dark focus:border-gold focus:outline-none text-warm-brown placeholder-warm-brown/40 resize-none"
+            placeholder="Deine Nachricht..."
+          ></textarea>
+        </div>
+
+        <div class="text-center">
+          <button
+            type="submit"
+            class="inline-block bg-gold text-soft-white hover:bg-gold-light hover:text-dark-brown transition-colors px-8 py-3 text-sm tracking-wider uppercase cursor-pointer"
+          >
+            Nachricht senden
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

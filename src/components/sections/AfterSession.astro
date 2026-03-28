@@ -1,0 +1,29 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import { t, type Lang } from '../../i18n/index';
+
+interface Props { lang?: Lang; }
+const { lang = 'de' } = Astro.props;
+
+const tips = [
+  { titleKey: 'afterSession.rest', descKey: 'afterSession.restDesc' },
+  { titleKey: 'afterSession.journal', descKey: 'afterSession.journalDesc' },
+  { titleKey: 'afterSession.movement', descKey: 'afterSession.movementDesc' },
+  { titleKey: 'afterSession.water', descKey: 'afterSession.waterDesc' },
+  { titleKey: 'afterSession.calm', descKey: 'afterSession.calmDesc' },
+];
+---
+
+<section id="nach-der-session" class="py-20 px-4 bg-cream-light/50">
+  <div class="mx-auto max-w-4xl">
+    <SectionHeading title={t(lang, 'afterSession.title')} subtitle={t(lang, 'afterSession.subtitle')} />
+    <div class="space-y-8">
+      {tips.map((tip) => (
+        <div class="text-center">
+          <h3 class="text-warm-brown font-semibold tracking-wider uppercase text-sm mb-2">{t(lang, tip.titleKey)}</h3>
+          <p class="text-warm-brown leading-relaxed max-w-2xl mx-auto">{t(lang, tip.descKey)}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

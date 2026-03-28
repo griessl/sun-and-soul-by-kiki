@@ -1,0 +1,102 @@
+---
+import '../styles/global.css';
+import '@fontsource/playfair-display/400.css';
+import '@fontsource/playfair-display/400-italic.css';
+import '@fontsource/playfair-display/500.css';
+import '@fontsource/playfair-display/500-italic.css';
+import '@fontsource/playfair-display/600.css';
+import '@fontsource/playfair-display/600-italic.css';
+import '@fontsource/playfair-display/700.css';
+import '@fontsource/playfair-display/700-italic.css';
+import '@fontsource/lora/400.css';
+import '@fontsource/lora/400-italic.css';
+import '@fontsource/lora/500.css';
+import '@fontsource/lora/600.css';
+import '@fontsource/lora/700.css';
+import Navigation from '../components/layout/Navigation.astro';
+import Footer from '../components/layout/Footer.astro';
+import { getLocalizedPath, type Lang } from '../i18n/index';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Lang;
+}
+
+const {
+  title,
+  description = 'Sun & Soul by Kiki – Reiki Sessions in Berlin und Online.',
+  lang = 'de',
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const canonicalBase = 'https://sunandsoulbykiki.de';
+const canonicalUrl = `${canonicalBase}${currentPath}`;
+const alternateLang = lang === 'de' ? 'en' : 'de';
+const alternatePath = getLocalizedPath(currentPath, alternateLang);
+const fullTitle = `${title} | Sun & Soul by Kiki`;
+
+const schemaOrg = {
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  "name": "Sun & Soul by Kiki",
+  "description": lang === 'de'
+    ? "Reiki Sessions in Berlin und Online. Zertifizierte Reiki-Praktizierende (Usui Reiki Ryoho)."
+    : "Reiki Sessions in Berlin and Online. Certified Reiki Practitioner (Usui Reiki Ryoho).",
+  "url": canonicalBase,
+  "image": `${canonicalBase}/images/kiki-hero.jpg`,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Berlin",
+    "addressCountry": "DE"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Frederike Helders",
+    "alternateName": "Kiki"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Berlin" },
+    { "@type": "Country", "name": "Germany" }
+  ],
+  "serviceType": ["Reiki", "Fern-Reiki", "Sound & Soul"],
+  "availableLanguage": ["German", "English"],
+  "priceRange": "€€"
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{fullTitle}</title>
+
+    <!-- Canonical & hreflang -->
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="de" href={`${canonicalBase}${lang === 'de' ? currentPath : alternatePath}`} />
+    <link rel="alternate" hreflang="en" href={`${canonicalBase}${lang === 'en' ? currentPath : alternatePath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${canonicalBase}${lang === 'de' ? currentPath : alternatePath}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={`${canonicalBase}/images/kiki-hero.jpg`} />
+    <meta property="og:locale" content={lang === 'de' ? 'de_DE' : 'en_US'} />
+    <meta property="og:site_name" content="Sun & Soul by Kiki" />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
+  </head>
+  <body class="min-h-screen bg-cream">
+    <Navigation lang={lang} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

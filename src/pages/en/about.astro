@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
+import Button from '../../components/ui/Button.astro';
+import Principles from '../../components/sections/Principles.astro';
+import { t, tList } from '../../i18n/index';
+
+const lang = 'en' as const;
+---
+
+<BaseLayout title="About me" lang="en" description="Meet Kiki — Certified Reiki practitioner in Berlin.">
+
+  <section class="py-20 px-4">
+    <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="aspect-[3/4] bg-cream-dark rounded-sm overflow-hidden max-w-md mx-auto">
+        <img src="/images/kiki-ocean.jpg" alt="Kiki — Sun & Soul Reiki" class="w-full h-full object-cover object-top" loading="eager" />
+      </div>
+      <div>
+        <p class="text-gold text-sm tracking-[0.2em] uppercase mb-3">{t(lang, 'about.tagline')}</p>
+        <h1 class="font-heading text-4xl md:text-5xl text-dark-brown italic leading-tight mb-6">{t(lang, 'about.greeting')}</h1>
+        <p class="text-warm-brown leading-relaxed mb-4">{t(lang, 'about.intro1')}</p>
+        <p class="text-warm-brown leading-relaxed">{t(lang, 'about.intro2')}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-4 bg-cream-light/50">
+    <div class="mx-auto max-w-3xl">
+      <SectionHeading title={t(lang, 'about.storyTitle')} />
+      <div class="space-y-6 text-warm-brown leading-relaxed">
+        {[1,2,3,4,5].map(i => <p>{t(lang, `about.story${i}`)}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-4">
+    <div class="mx-auto max-w-4xl">
+      <SectionHeading title={t(lang, 'about.factsTitle')} />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm">
+          <h3 class="font-heading text-xl text-dark-brown italic mb-4">{t(lang, 'about.passionsTitle')}</h3>
+          <ul class="space-y-2 text-warm-brown text-sm">
+            {tList(lang, 'about.passions').map(item => (
+              <li class="flex items-start gap-2"><span class="text-gold shrink-0">&bull;</span> {item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm">
+          <h3 class="font-heading text-xl text-dark-brown italic mb-4">{t(lang, 'about.joysTitle')}</h3>
+          <ul class="space-y-2 text-warm-brown text-sm">
+            {tList(lang, 'about.joys').map(item => (
+              <li class="flex items-start gap-2"><span class="text-gold shrink-0">&bull;</span> {item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20 px-4 bg-cream-light/50">
+    <div class="mx-auto max-w-3xl text-center">
+      <SectionHeading title={t(lang, 'about.valuesTitle')} />
+      <div class="space-y-6 text-warm-brown leading-relaxed">
+        <p>{t(lang, 'about.values1')}</p>
+        <p>{t(lang, 'about.values2')}</p>
+        <p>{t(lang, 'about.values3')}</p>
+      </div>
+    </div>
+  </section>
+
+  <Principles lang="en" />
+
+  <section class="py-20 px-4 text-center">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic mb-6">{t(lang, 'about.ctaTitle')}</h2>
+      <p class="text-warm-brown leading-relaxed mb-8">{t(lang, 'about.ctaText')}</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href="/en/book" variant="primary">{t(lang, 'about.ctaBook')}</Button>
+        <Button href="/en/contact">{t(lang, 'about.ctaContact')}</Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

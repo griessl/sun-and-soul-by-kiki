@@ -1,0 +1,41 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import { t, tList, type Lang } from '../../i18n/index';
+
+interface Props { lang?: Lang; }
+const { lang = 'de' } = Astro.props;
+
+const categories = [
+  { titleKey: 'reikiBenefits.physical', itemsKey: 'reikiBenefits.physicalItems' },
+  { titleKey: 'reikiBenefits.emotional', itemsKey: 'reikiBenefits.emotionalItems' },
+  { titleKey: 'reikiBenefits.mental', itemsKey: 'reikiBenefits.mentalItems' },
+];
+---
+
+<section id="vorteile" class="py-20 px-4 bg-cream-light/50">
+  <div class="mx-auto max-w-6xl">
+    <SectionHeading title={t(lang, 'reikiBenefits.title')} />
+
+    <p class="text-warm-brown leading-relaxed mb-12 text-lg text-center max-w-3xl mx-auto">
+      {t(lang, 'reikiBenefits.intro')}
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {categories.map((cat) => (
+        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm">
+          <h3 class="font-heading text-xl text-dark-brown italic mb-6 text-center underline decoration-gold/40 underline-offset-4">
+            {t(lang, cat.titleKey)}
+          </h3>
+          <ul class="space-y-2">
+            {tList(lang, cat.itemsKey).map((item) => (
+              <li class="flex items-start gap-2 text-warm-brown text-sm">
+                <span class="text-gold mt-0.5 shrink-0">&bull;</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

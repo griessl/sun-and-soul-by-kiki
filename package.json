@@ -1,0 +1,25 @@
+{
+  "name": "sun-and-soul-by-kiki",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "cms": "npx decap-server & astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource/lora": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.1.1",
+    "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "decap-server": "^3.6.0"
+  }
+}

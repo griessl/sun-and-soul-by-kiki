@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import { t } from '../i18n/index';
+import { getCollection } from 'astro:content';
+
+const lang = 'de' as const;
+const allTestimonials = await getCollection('testimonials');
+const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Testimonials" description="Erfahrungen und Bewertungen von Kikis Reiki-Kunden.">
+  <section class="py-20 px-4">
+    <div class="mx-auto max-w-4xl">
+      <SectionHeading title={t(lang, 'testimonials.title')} subtitle={t(lang, 'testimonials.subtitle')} />
+      <div class="space-y-8">
+        {testimonials.map((item) => (
+          <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
+            <p class="text-warm-brown leading-relaxed italic text-lg mb-4">&ldquo;{item.data.text_de}&rdquo;</p>
+            <p class="text-gold text-sm tracking-wider uppercase">{item.data.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

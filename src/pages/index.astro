@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Mission from '../components/sections/Mission.astro';
+import WhatIsReiki from '../components/sections/WhatIsReiki.astro';
+import ReikiBenefits from '../components/sections/ReikiBenefits.astro';
+import ReikiComparison from '../components/sections/ReikiComparison.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Button from '../components/ui/Button.astro';
+import Principles from '../components/sections/Principles.astro';
+import AfterSession from '../components/sections/AfterSession.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import { t, tList } from '../i18n/index';
+import { getCollection } from 'astro:content';
+
+const lang = 'de' as const;
+const allTestimonials = await getCollection('testimonials');
+const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Home">
+  <!-- Home -->
+  <Hero />
+
+  <!-- Mission / Über mich Teaser -->
+  <Mission />
+
+  <!-- Reiki -->
+  <WhatIsReiki />
+  <ReikiBenefits />
+  <ReikiComparison />
+  <AfterSession />
+
+  <!-- Preise -->
+  <Pricing />
+
+  <!-- Sound & Soul -->
+  <section id="sound-and-soul" class="py-20 px-4">
+    <div class="text-center max-w-2xl mx-auto">
+      <p class="text-gold text-sm tracking-[0.3em] uppercase mb-6">{t(lang, 'soundAndSoul.comingSoon')}</p>
+      <h2 class="font-heading text-4xl md:text-5xl text-dark-brown italic leading-tight mb-6">{t(lang, 'soundAndSoul.title')}</h2>
+      <p class="text-warm-brown text-lg leading-relaxed mb-4">{t(lang, 'soundAndSoul.subtitle')}</p>
+      <p class="text-warm-brown/70 leading-relaxed mb-10">{t(lang, 'soundAndSoul.comingText')}</p>
+      <Button href="/kontakt">{t(lang, 'soundAndSoul.contactBtn')}</Button>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="py-20 px-4 bg-cream-light/50">
+    <div class="mx-auto max-w-4xl">
+      <SectionHeading title={t(lang, 'testimonials.title')} subtitle={t(lang, 'testimonials.subtitle')} />
+      <div class="space-y-8">
+        {testimonials.map((item) => (
+          <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
+            <p class="text-warm-brown leading-relaxed italic text-lg mb-4">&ldquo;{item.data.text_de}&rdquo;</p>
+            <p class="text-gold text-sm tracking-wider uppercase">{item.data.name}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Über mich Teaser -->
+  <section id="ueber-mich" class="py-20 px-4">
+    <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="aspect-[3/4] bg-cream-dark rounded-sm overflow-hidden max-w-md mx-auto">
+        <img src="/images/kiki-ocean.jpg" alt="Kiki — Sun & Soul Reiki" class="w-full h-full object-cover object-top" loading="lazy" />
+      </div>
+      <div>
+        <p class="text-gold text-sm tracking-[0.2em] uppercase mb-3">{t(lang, 'about.tagline')}</p>
+        <h2 class="font-heading text-4xl md:text-5xl text-dark-brown italic leading-tight mb-6">{t(lang, 'about.greeting')}</h2>
+        <p class="text-warm-brown leading-relaxed mb-4">{t(lang, 'about.intro1')}</p>
+        <p class="text-warm-brown leading-relaxed mb-8">{t(lang, 'about.intro2')}</p>
+        <Button href="/ueber-mich">Mehr über mich</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reiki Prinzipien -->
+  <Principles />
+
+  <!-- CTA -->
+  <section class="py-20 px-4 text-center bg-cream-light/50">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic mb-6">{t(lang, 'about.ctaTitle')}</h2>
+      <p class="text-warm-brown leading-relaxed mb-8">{t(lang, 'about.ctaText')}</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href="/buchen" variant="primary">{t(lang, 'about.ctaBook')}</Button>
+        <Button href="/kontakt">{t(lang, 'about.ctaContact')}</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

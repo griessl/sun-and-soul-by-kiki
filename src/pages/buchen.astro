@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+---
+
+<BaseLayout title="Termin buchen" description="Buche deine Reiki-Session mit Kiki — in Berlin oder als Remote-Session.">
+  <section class="py-20 px-4">
+    <div class="mx-auto max-w-4xl text-center">
+      <SectionHeading
+        title="Termin buchen"
+        subtitle="Wähle deine Session und finde einen passenden Termin"
+      />
+
+      <!-- Cal.com Embed Placeholder -->
+      <div class="bg-soft-white/60 backdrop-blur-sm p-12 rounded-sm">
+        <p class="text-warm-brown mb-6">
+          Das Buchungssystem wird hier eingebettet, sobald das Cal.com-Konto eingerichtet ist.
+        </p>
+        <p class="text-warm-brown/60 text-sm">
+          In der Zwischenzeit kannst du mich direkt kontaktieren:
+        </p>
+        <a
+          href="mailto:hello@sunandsoulbykiki.de"
+          class="inline-block mt-4 border border-gold text-gold hover:bg-gold hover:text-soft-white transition-colors px-8 py-3 text-sm tracking-wider uppercase"
+        >
+          E-Mail schreiben
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import { t, type Lang } from '../../i18n/index';
+
+interface Props { lang?: Lang; }
+const { lang = 'de' } = Astro.props;
+---
+
+<section id="reiki-vergleich" class="py-20 px-4 bg-cream-light/50">
+  <div class="mx-auto max-w-5xl">
+    <SectionHeading title={t(lang, 'comparison.title')} />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm">
+        <h3 class="font-heading text-2xl text-dark-brown italic mb-6 text-center">{t(lang, 'comparison.reikiTitle')}</h3>
+        <p class="text-warm-brown leading-relaxed">{t(lang, 'comparison.reikiBody')}</p>
+      </div>
+      <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm">
+        <h3 class="font-heading text-2xl text-dark-brown italic mb-6 text-center">{t(lang, 'comparison.remoteTitle')}</h3>
+        <p class="text-warm-brown leading-relaxed">{t(lang, 'comparison.remoteBody')}</p>
+      </div>
+    </div>
+  </div>
+</section>

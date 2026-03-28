@@ -1,0 +1,21 @@
+---
+import Button from '../ui/Button.astro';
+import { t, getBookingPath, type Lang } from '../../i18n/index';
+
+interface Props { lang?: Lang; }
+const { lang = 'de' } = Astro.props;
+---
+
+<section id="home" class="relative min-h-[80vh] flex items-center justify-center text-center px-4 py-20">
+  <div class="max-w-3xl">
+    <p class="text-warm-brown text-sm tracking-[0.3em] uppercase mb-6">{t(lang, 'hero.tagline')}</p>
+    <h1 class="font-heading text-5xl md:text-7xl text-dark-brown italic leading-tight mb-8">
+      Sun & Soul<br />by Kiki
+    </h1>
+    <p class="text-warm-brown text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed">{t(lang, 'hero.subtitle')}</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <Button href={getBookingPath(lang)} variant="primary">{t(lang, 'hero.bookBtn')}</Button>
+      <Button href={lang === 'en' ? '/en/reiki' : '/reiki'}>{t(lang, 'hero.learnMore')}</Button>
+    </div>
+  </div>
+</section>

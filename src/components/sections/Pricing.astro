@@ -1,0 +1,36 @@
+---
+import Button from '../ui/Button.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { getBookingPath, type Lang } from '../../i18n/index';
+import { getCollection } from 'astro:content';
+
+interface Props { lang?: Lang; }
+const { lang = 'de' } = Astro.props;
+
+const allServices = await getCollection('services');
+const services = allServices.filter(s => s.data.active);
+---
+
+<section id="preise" class="py-20 px-4">
+  <div class="mx-auto max-w-4xl">
+    <SectionHeading
+      title={lang === 'de' ? 'Sessions & Preise' : 'Sessions & Pricing'}
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+      {services.map((service) => (
+        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
+          <h3 class="font-heading text-2xl text-dark-brown italic mb-4">
+            {lang === 'de' ? service.data.name_de : service.data.name_en}
+          </h3>
+          <p class="text-gold text-3xl font-heading mb-2">{service.data.price} &euro;</p>
+          <p class="text-warm-brown/60 text-sm mb-6">{service.data.duration} {lang === 'de' ? 'Minuten' : 'minutes'}</p>
+          <p class="text-warm-brown text-sm leading-relaxed mb-6">
+            {lang === 'de' ? service.data.description_de : service.data.description_en}
+          </p>
+          <Button href={getBookingPath(lang)}>{lang === 'de' ? 'Termin buchen' : 'Book a session'}</Button>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
