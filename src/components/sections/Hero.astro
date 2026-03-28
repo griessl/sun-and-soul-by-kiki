@@ -6,7 +6,7 @@ interface Props { lang?: Lang; }
 const { lang = 'de' } = Astro.props;
 ---
 
-<section id="home" class="relative min-h-[80vh] flex items-center justify-center text-center px-4 py-20">
+<section id="home" class="relative min-h-0 md:min-h-[80vh] flex items-center justify-center text-center px-4 py-20">
   <div class="max-w-3xl">
     <p class="text-warm-brown text-sm tracking-[0.3em] uppercase mb-6">{t(lang, 'hero.tagline')}</p>
     <h1 class="font-heading text-5xl md:text-7xl text-dark-brown italic leading-tight mb-8">

@@ -11,7 +11,7 @@ const allServices = await getCollection('services');
 const services = allServices.filter(s => s.data.active);
 ---
 
-<section id="preise" class="py-20 px-4">
+<section id="preise" class="py-8 md:py-14 lg:py-20 px-4">
   <div class="mx-auto max-w-4xl">
     <SectionHeading
       title={lang === 'de' ? 'Sessions & Preise' : 'Sessions & Pricing'}

@@ -17,21 +17,21 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
   <Hero lang="en" />
   <Mission lang="en" />
 
-  <section id="reiki" class="py-20 px-4 bg-cream-light/50">
+  <section id="reiki" class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
     <div class="mx-auto max-w-3xl text-center">
       <SectionHeading title={t(lang, 'whatIsReiki.title')} />
       <p class="text-warm-brown leading-relaxed mb-6">{t(lang, 'whatIsReiki.intro')}</p>
       <p class="text-warm-brown leading-relaxed mb-6 italic">{t(lang, 'whatIsReiki.note')}</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button href="/en/reiki">Learn more about Reiki</Button>
         <Button href="/en/book" variant="primary">{t(lang, 'whatIsReiki.bookBtn')}</Button>
+        <Button href="/en/reiki">Learn more about Reiki</Button>
       </div>
     </div>
   </section>
 
   <Pricing lang="en" />
 
-  <section id="sound-and-soul" class="py-20 px-4">
+  <section id="sound-and-soul" class="py-8 md:py-14 lg:py-20 px-4">
     <div class="text-center max-w-2xl mx-auto">
       <p class="text-gold text-sm tracking-[0.3em] uppercase mb-6">{t(lang, 'soundAndSoul.comingSoon')}</p>
       <h2 class="font-heading text-4xl md:text-5xl text-dark-brown italic leading-tight mb-6">{t(lang, 'soundAndSoul.title')}</h2>
@@ -41,7 +41,7 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
     </div>
   </section>
 
-  <section id="testimonials" class="py-20 px-4 bg-cream-light/50">
+  <section id="testimonials" class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
     <div class="mx-auto max-w-4xl">
       <SectionHeading title={t(lang, 'testimonials.title')} subtitle={t(lang, 'testimonials.subtitle')} />
       <div class="space-y-8">
@@ -55,7 +55,7 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
     </div>
   </section>
 
-  <section id="ueber-mich" class="py-20 px-4">
+  <section id="ueber-mich" class="py-8 md:py-14 lg:py-20 px-4">
     <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div class="aspect-[3/4] bg-cream-dark rounded-sm overflow-hidden max-w-md mx-auto">
         <img src="/images/kiki-ocean.jpg" alt="Kiki — Sun & Soul Reiki" class="w-full h-full object-cover object-top" loading="lazy" />
@@ -69,7 +69,7 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
     </div>
   </section>
 
-  <section class="py-20 px-4 text-center bg-cream-light/50">
+  <section class="py-8 md:py-14 lg:py-20 px-4 text-center bg-cream-light/50">
     <div class="mx-auto max-w-2xl">
       <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic mb-6">{t(lang, 'cta.title')}</h2>
       <p class="text-warm-brown leading-relaxed mb-8">{t(lang, 'cta.text')}</p>
