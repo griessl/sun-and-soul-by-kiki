@@ -28,7 +28,7 @@ const services = allServices.filter(s => s.data.active);
           <p class="text-warm-brown text-sm leading-relaxed mb-6">
             {lang === 'de' ? service.data.description_de : service.data.description_en}
           </p>
-          <Button href={getBookingPath(lang)}>{lang === 'de' ? 'Termin buchen' : 'Book a session'}</Button>
+          <Button href={getBookingPath(lang)} variant="primary">{lang === 'de' ? 'Termin buchen' : 'Book a session'}</Button>
         </div>
       ))}
     </div>

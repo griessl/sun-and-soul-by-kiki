@@ -13,7 +13,7 @@ const { lang = 'de' } = Astro.props;
     <p class="text-warm-brown leading-relaxed mb-6">{t(lang, 'soundAndSoul.p1')}</p>
     <p class="text-warm-brown leading-relaxed mb-10">{t(lang, 'soundAndSoul.p2')}</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <Button href={getBookingPath(lang)}>{t(lang, 'soundAndSoul.bookBtn')}</Button>
+      <Button href={getBookingPath(lang)} variant="primary">{t(lang, 'soundAndSoul.bookBtn')}</Button>
     </div>
   </div>
 </section>

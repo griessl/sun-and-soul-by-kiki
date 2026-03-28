@@ -14,7 +14,7 @@ const { lang = 'de' } = Astro.props;
     <p class="text-warm-brown leading-relaxed mb-6 italic">{t(lang, 'whatIsReiki.note')}</p>
     <p class="text-warm-brown leading-relaxed mb-10">{t(lang, 'whatIsReiki.body')}</p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <Button href={getBookingPath(lang)}>{t(lang, 'whatIsReiki.bookBtn')}</Button>
+      <Button href={getBookingPath(lang)} variant="primary">{t(lang, 'whatIsReiki.bookBtn')}</Button>
       <Button href="#nach-der-session">{t(lang, 'whatIsReiki.sessionBtn')}</Button>
       <Button href="#vorteile">{t(lang, 'whatIsReiki.benefitsBtn')}</Button>
     </div>
