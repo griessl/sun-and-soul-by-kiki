@@ -11,7 +11,7 @@ const lang = 'en' as const;
 <BaseLayout title="Book a Session" lang="en" description="Book your Reiki session with Kiki in Berlin or as a remote session.">
   <section class="py-20 px-4">
     <div class="mx-auto max-w-4xl text-center">
-      <SectionHeading title={t(lang, 'booking.title')} subtitle={t(lang, 'booking.subtitle')} />
+      <SectionHeading title={t(lang, 'booking.title')} subtitle={t(lang, 'booking.subtitle')} as="h1" />
       <div class="bg-soft-white/60 backdrop-blur-sm p-12 rounded-sm">
         <p class="text-warm-brown mb-6">{t(lang, 'booking.placeholder')}</p>
         <p class="text-warm-brown/60 text-sm mb-6">{t(lang, 'booking.fallback')}</p>

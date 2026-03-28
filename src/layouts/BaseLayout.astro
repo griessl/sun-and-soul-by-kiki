@@ -38,7 +38,7 @@ const fullTitle = `${title} | Sun & Soul by Kiki`;
 
 const schemaOrg = {
   "@context": "https://schema.org",
-  "@type": "HealthAndBeautyBusiness",
+  "@type": ["LocalBusiness", "ProfessionalService"],
   "name": "Sun & Soul by Kiki",
   "description": lang === 'de'
     ? "Reiki Sessions in Berlin und Online. Zertifizierte Reiki-Praktizierende (Usui Reiki Ryoho)."
@@ -50,16 +50,40 @@ const schemaOrg = {
     "addressLocality": "Berlin",
     "addressCountry": "DE"
   },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "hello@sunandsoulbykiki.de",
+    "contactType": "customer service",
+    "availableLanguage": ["German", "English"]
+  },
   "founder": {
     "@type": "Person",
     "name": "Frederike Helders",
-    "alternateName": "Kiki"
+    "alternateName": "Kiki",
+    "jobTitle": lang === 'de' ? "Reiki-Praktizierende" : "Reiki Practitioner"
   },
   "areaServed": [
     { "@type": "City", "name": "Berlin" },
     { "@type": "Country", "name": "Germany" }
   ],
-  "serviceType": ["Reiki", "Fern-Reiki", "Sound & Soul"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Reiki Sessions",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": "Reiki Session" },
+        "price": "90",
+        "priceCurrency": "EUR"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": { "@type": "Service", "name": lang === 'de' ? "Fern-Reiki Session" : "Distance Reiki Session" },
+        "price": "90",
+        "priceCurrency": "EUR"
+      }
+    ]
+  },
   "availableLanguage": ["German", "English"],
   "priceRange": "€€"
 };

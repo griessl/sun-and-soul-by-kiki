@@ -6,10 +6,12 @@ import ReikiComparison from '../components/sections/ReikiComparison.astro';
 import ReikiBenefits from '../components/sections/ReikiBenefits.astro';
 import AfterSession from '../components/sections/AfterSession.astro';
 import Pricing from '../components/sections/Pricing.astro';
+import { t } from '../i18n/index';
 ---
 
 <BaseLayout title="Reiki" description="Erfahre was Reiki ist, wie eine Sitzung abläuft und welche Vorteile Reiki für Körper, Geist und Seele hat.">
   <Breadcrumb current="Reiki" />
+  <h1 class="sr-only">Reiki - {t('de', 'whatIsReiki.title')}</h1>
   <WhatIsReiki />
   <ReikiBenefits />
   <ReikiComparison />

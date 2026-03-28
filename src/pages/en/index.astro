@@ -2,15 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/sections/Hero.astro';
 import Mission from '../../components/sections/Mission.astro';
-import WhatIsReiki from '../../components/sections/WhatIsReiki.astro';
-import ReikiBenefits from '../../components/sections/ReikiBenefits.astro';
-import ReikiComparison from '../../components/sections/ReikiComparison.astro';
 import SectionHeading from '../../components/ui/SectionHeading.astro';
 import Button from '../../components/ui/Button.astro';
-import Principles from '../../components/sections/Principles.astro';
-import AfterSession from '../../components/sections/AfterSession.astro';
 import Pricing from '../../components/sections/Pricing.astro';
-import { t, tList } from '../../i18n/index';
+import { t } from '../../i18n/index';
 import { getCollection } from 'astro:content';
 
 const lang = 'en' as const;
@@ -21,10 +16,18 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
 <BaseLayout title="Home" lang="en" description="Sun & Soul by Kiki – Reiki Sessions in Berlin and Online.">
   <Hero lang="en" />
   <Mission lang="en" />
-  <WhatIsReiki lang="en" />
-  <ReikiBenefits lang="en" />
-  <ReikiComparison lang="en" />
-  <AfterSession lang="en" />
+
+  <section id="reiki" class="py-20 px-4 bg-cream-light/50">
+    <div class="mx-auto max-w-3xl text-center">
+      <SectionHeading title={t(lang, 'whatIsReiki.title')} />
+      <p class="text-warm-brown leading-relaxed mb-6">{t(lang, 'whatIsReiki.intro')}</p>
+      <p class="text-warm-brown leading-relaxed mb-6 italic">{t(lang, 'whatIsReiki.note')}</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href="/en/reiki">Learn more about Reiki</Button>
+        <Button href="/en/book" variant="primary">{t(lang, 'whatIsReiki.bookBtn')}</Button>
+      </div>
+    </div>
+  </section>
 
   <Pricing lang="en" />
 
@@ -60,14 +63,11 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
       <div>
         <p class="text-gold text-sm tracking-[0.2em] uppercase mb-3">{t(lang, 'about.tagline')}</p>
         <h2 class="font-heading text-4xl md:text-5xl text-dark-brown italic leading-tight mb-6">{t(lang, 'about.greeting')}</h2>
-        <p class="text-warm-brown leading-relaxed mb-4">{t(lang, 'about.intro1')}</p>
         <p class="text-warm-brown leading-relaxed mb-8">{t(lang, 'about.intro2')}</p>
         <Button href="/en/about">More about me</Button>
       </div>
     </div>
   </section>
-
-  <Principles lang="en" />
 
   <section class="py-20 px-4 text-center bg-cream-light/50">
     <div class="mx-auto max-w-2xl">
