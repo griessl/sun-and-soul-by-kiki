@@ -115,14 +115,16 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   if (isHomepage) {
     const navLinks = document.querySelectorAll('.nav-link');
     // Map section IDs to nav link hrefs
+    // Map sections to nav items. Sections NOT listed here keep
+    // the previous highlight active (no jump back to home).
     const sectionToNav: Record<string, string> = {
       'home': '/',
       'mission': '/',
       'reiki': '/reiki',
       'preise': '/reiki',
       'testimonials': '/reiki',
-      'sound-and-soul': '/',
       'ueber-mich': '/ueber-mich',
+      'sound-and-soul': '/ueber-mich',
     };
     // For EN
     const isEN = window.location.pathname.startsWith('/en');
@@ -132,8 +134,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
       sectionToNav['reiki'] = '/en/reiki';
       sectionToNav['preise'] = '/en/reiki';
       sectionToNav['testimonials'] = '/en/reiki';
-      sectionToNav['sound-and-soul'] = '/en/';
-      sectionToNav['ueber-mich'] = isEN ? '/en/about' : '/ueber-mich';
+      sectionToNav['ueber-mich'] = '/en/about';
+      sectionToNav['sound-and-soul'] = '/en/about';
     }
 
     function setActiveNavLink(href: string) {
