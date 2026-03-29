@@ -8,6 +8,10 @@ import ReikiBenefits from '../../components/sections/ReikiBenefits.astro';
 import AfterSession from '../../components/sections/AfterSession.astro';
 import Pricing from '../../components/sections/Pricing.astro';
 import { t } from '../../i18n/index';
+import { getCollection } from 'astro:content';
+
+const allTestimonials = await getCollection('testimonials');
+const testimonial = allTestimonials[0];
 ---
 
 <BaseLayout title="Reiki" lang="en" description="Learn what Reiki is, how a session works, and the benefits for body, mind, and soul.">
@@ -18,6 +22,17 @@ import { t } from '../../i18n/index';
   <ReikiComparison lang="en" />
   <AfterSession lang="en" />
   <Pricing lang="en" />
+
+  {testimonial && (
+    <section class="py-8 md:py-14 lg:py-20 px-4">
+      <div class="mx-auto max-w-2xl">
+        <div class="bg-soft-white/60 backdrop-blur-sm p-6 md:p-8 rounded-sm text-center">
+          <p class="text-warm-brown leading-relaxed italic text-lg mb-4">&ldquo;{testimonial.data.text_en}&rdquo;</p>
+          <p class="text-gold text-sm tracking-wider uppercase">{testimonial.data.name}</p>
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="py-8 md:py-14 lg:py-20 px-4 text-center bg-cream-light/50">
     <div class="mx-auto max-w-2xl">

@@ -18,7 +18,7 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
 
   <Mission />
 
-  <!-- Reiki Teaser (unique content, full version on /reiki) -->
+  <!-- Reiki Teaser -->
   <section id="reiki" class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
     <div class="mx-auto max-w-3xl text-center">
       <SectionHeading title={t(lang, 'whatIsReiki.title')} />
@@ -34,24 +34,13 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
   <!-- Preise -->
   <Pricing />
 
-  <!-- Sound & Soul -->
-  <section id="sound-and-soul" class="py-8 md:py-14 lg:py-20 px-4">
-    <div class="text-center max-w-2xl mx-auto">
-      <p class="text-gold text-sm tracking-[0.3em] uppercase mb-6">{t(lang, 'soundAndSoul.comingSoon')}</p>
-      <h2 class="font-heading text-4xl md:text-5xl text-dark-brown italic leading-tight mb-6">{t(lang, 'soundAndSoul.title')}</h2>
-      <p class="text-warm-brown text-lg leading-relaxed mb-4">{t(lang, 'soundAndSoul.subtitle')}</p>
-      <p class="text-warm-brown/70 leading-relaxed mb-10">{t(lang, 'soundAndSoul.comingText')}</p>
-      <Button href="/kontakt">{t(lang, 'soundAndSoul.contactBtn')}</Button>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
+  <!-- Testimonials (direkt nach Preisen = Social Proof nach Preistransparenz) -->
   <section id="testimonials" class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
     <div class="mx-auto max-w-4xl">
       <SectionHeading title={t(lang, 'testimonials.title')} subtitle={t(lang, 'testimonials.subtitle')} />
-      <div class="space-y-8">
+      <div class="space-y-6 md:space-y-8">
         {testimonials.map((item) => (
-          <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
+          <div class="bg-soft-white/60 backdrop-blur-sm p-6 md:p-8 rounded-sm text-center">
             <p class="text-warm-brown leading-relaxed italic text-lg mb-4">&ldquo;{item.data.text_de}&rdquo;</p>
             <p class="text-gold text-sm tracking-wider uppercase">{item.data.name}</p>
           </div>
@@ -60,23 +49,34 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
     </div>
   </section>
 
-  <!-- Über mich Teaser (unique, full version on /ueber-mich) -->
+  <!-- Über mich Teaser -->
   <section id="ueber-mich" class="py-8 md:py-14 lg:py-20 px-4">
-    <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <div class="aspect-[3/4] bg-cream-dark rounded-sm overflow-hidden max-w-md mx-auto">
+    <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+      <div class="aspect-[3/4] bg-cream-dark rounded-sm overflow-hidden max-w-sm md:max-w-md mx-auto">
         <img src="/images/kiki-ocean.jpg" alt="Kiki — Sun & Soul Reiki" class="w-full h-full object-cover object-top" loading="lazy" />
       </div>
       <div>
         <p class="text-gold text-sm tracking-[0.2em] uppercase mb-3">{t(lang, 'about.tagline')}</p>
-        <h2 class="font-heading text-4xl md:text-5xl text-dark-brown italic leading-tight mb-6">{t(lang, 'about.greeting')}</h2>
-        <p class="text-warm-brown leading-relaxed mb-8">{t(lang, 'about.intro2')}</p>
+        <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic leading-tight mb-4 md:mb-6">{t(lang, 'about.greeting')}</h2>
+        <p class="text-warm-brown leading-relaxed mb-6 md:mb-8">{t(lang, 'about.intro2')}</p>
         <Button href="/ueber-mich">Mehr über mich</Button>
       </div>
     </div>
   </section>
 
+  <!-- Sound & Soul (Coming Soon, am Ende) -->
+  <section id="sound-and-soul" class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
+    <div class="text-center max-w-2xl mx-auto">
+      <p class="text-gold text-sm tracking-[0.3em] uppercase mb-4">{t(lang, 'soundAndSoul.comingSoon')}</p>
+      <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic leading-tight mb-4">{t(lang, 'soundAndSoul.title')}</h2>
+      <p class="text-warm-brown leading-relaxed mb-3">{t(lang, 'soundAndSoul.subtitle')}</p>
+      <p class="text-warm-brown/60 leading-relaxed mb-8">{t(lang, 'soundAndSoul.comingText')}</p>
+      <Button href="/kontakt">{t(lang, 'soundAndSoul.contactBtn')}</Button>
+    </div>
+  </section>
+
   <!-- CTA -->
-  <section class="py-8 md:py-14 lg:py-20 px-4 text-center bg-cream-light/50">
+  <section class="py-8 md:py-14 lg:py-20 px-4 text-center">
     <div class="mx-auto max-w-2xl">
       <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic mb-6">{t(lang, 'cta.title')}</h2>
       <p class="text-warm-brown leading-relaxed mb-8">{t(lang, 'cta.text')}</p>
