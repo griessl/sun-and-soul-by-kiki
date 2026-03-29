@@ -51,6 +51,10 @@ collections:
           - { label: "Button Book (EN)", name: "cta_bookBtn_en", widget: "string" }
           - { label: "Button Kontakt (DE)", name: "cta_contactBtn_de", widget: "string" }
           - { label: "Button Contact (EN)", name: "cta_contactBtn_en", widget: "string" }
+          - { label: "Reiki Prinzipien Titel (DE)", name: "principles_title_de", widget: "string", hint: "Wird auf Englisch belassen (traditionell)" }
+          - { label: "Reiki Principles Title (EN)", name: "principles_title_en", widget: "string" }
+          - { label: "Prinzipien Einleitung (DE)", name: "principles_intro_de", widget: "string" }
+          - { label: "Principles Intro (EN)", name: "principles_intro_en", widget: "string" }
 
       - label: "Was ist Reiki"
         name: "was-ist-reiki"
@@ -251,6 +255,8 @@ collections:
           - { label: "Placeholder Message (EN)", name: "contact_messagePlaceholder_en", widget: "string" }
           - { label: "Button Senden (DE)", name: "contact_sendBtn_de", widget: "string" }
           - { label: "Button Send (EN)", name: "contact_sendBtn_en", widget: "string" }
+          - { label: "E-Mail Betreff (DE)", name: "contact_emailSubject_de", widget: "string", hint: "Betreffzeile der Kontaktanfrage per E-Mail" }
+          - { label: "Email Subject (EN)", name: "contact_emailSubject_en", widget: "string" }
 
       - label: "Navigation & Footer"
         name: "nav-footer"
