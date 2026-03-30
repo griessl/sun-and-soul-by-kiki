@@ -14,11 +14,13 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
 ---
 
 <BaseLayout title="Home">
+  <!-- 1. Hero -->
   <Hero />
 
+  <!-- 2. Meine Mission -->
   <Mission />
 
-  <!-- Reiki Teaser -->
+  <!-- 3. Was ist Reiki (Teaser) -->
   <section id="reiki" class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
     <div class="mx-auto max-w-3xl text-center">
       <SectionHeading title={t(lang, 'whatIsReiki.title')} />
@@ -26,16 +28,13 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
       <p class="text-warm-brown leading-relaxed mb-6 italic">{t(lang, 'whatIsReiki.note')}</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <Button href="/buchen" variant="primary">{t(lang, 'whatIsReiki.bookBtn')}</Button>
-        <Button href="/reiki">Mehr über Reiki erfahren</Button>
+        <Button href="/reiki">Mehr erfahren</Button>
       </div>
     </div>
   </section>
 
-  <!-- Preise -->
-  <Pricing />
-
-  <!-- Testimonials (direkt nach Preisen = Social Proof nach Preistransparenz) -->
-  <section id="testimonials" class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
+  <!-- 4. Testimonials -->
+  <section id="testimonials" class="py-8 md:py-14 lg:py-20 px-4">
     <div class="mx-auto max-w-4xl">
       <SectionHeading title={t(lang, 'testimonials.title')} subtitle={t(lang, 'testimonials.subtitle')} />
       <div class="space-y-6 md:space-y-8">
@@ -49,7 +48,10 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
     </div>
   </section>
 
-  <!-- Über mich Teaser -->
+  <!-- 5. Sessions & Preise -->
+  <Pricing />
+
+  <!-- 6. Über mich Teaser -->
   <section id="ueber-mich" class="py-8 md:py-14 lg:py-20 px-4">
     <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
       <div class="aspect-[3/4] bg-cream-dark rounded-sm overflow-hidden max-w-sm md:max-w-md mx-auto">
@@ -58,13 +60,14 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
       <div>
         <p class="text-gold text-sm tracking-[0.2em] uppercase mb-3">{t(lang, 'about.tagline')}</p>
         <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic leading-tight mb-4 md:mb-6">{t(lang, 'about.greeting')}</h2>
+        <p class="text-warm-brown leading-relaxed mb-4">{t(lang, 'about.intro1')}</p>
         <p class="text-warm-brown leading-relaxed mb-6 md:mb-8">{t(lang, 'about.intro2')}</p>
         <Button href="/ueber-mich">Mehr über mich</Button>
       </div>
     </div>
   </section>
 
-  <!-- Sound & Soul (Coming Soon, am Ende) -->
+  <!-- 7. Sound & Soul -->
   <section id="sound-and-soul" class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
     <div class="text-center max-w-2xl mx-auto">
       <p class="text-gold text-sm tracking-[0.3em] uppercase mb-4">{t(lang, 'soundAndSoul.comingSoon')}</p>

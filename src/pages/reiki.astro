@@ -1,13 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/ui/Breadcrumb.astro';
-import Button from '../components/ui/Button.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
-import WhatIsReiki from '../components/sections/WhatIsReiki.astro';
-import ReikiComparison from '../components/sections/ReikiComparison.astro';
+import Button from '../components/ui/Button.astro';
 import ReikiBenefits from '../components/sections/ReikiBenefits.astro';
 import AfterSession from '../components/sections/AfterSession.astro';
-import Pricing from '../components/sections/Pricing.astro';
+import Principles from '../components/sections/Principles.astro';
 import { t } from '../i18n/index';
 import { getCollection } from 'astro:content';
 
@@ -17,14 +15,46 @@ const testimonial = allTestimonials[0];
 
 <BaseLayout title="Reiki" description="Erfahre was Reiki ist, wie eine Sitzung abläuft und welche Vorteile Reiki für Körper, Geist und Seele hat.">
   <Breadcrumb current="Reiki" />
-  <h1 class="sr-only">Reiki</h1>
-  <WhatIsReiki />
-  <ReikiBenefits />
-  <ReikiComparison />
-  <AfterSession />
-  <Pricing />
 
-  <!-- Ein Testimonial als Social Proof vor dem CTA -->
+  <!-- Was ist Reiki (Langtext) -->
+  <section class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
+    <div class="mx-auto max-w-4xl text-center">
+      <h1 class="font-heading text-4xl md:text-5xl text-dark-brown italic mb-8">{t('de', 'whatIsReiki.title')}</h1>
+      <p class="text-warm-brown leading-relaxed mb-6">{t('de', 'whatIsReiki.intro')}</p>
+      <p class="text-warm-brown leading-relaxed mb-6 italic">{t('de', 'whatIsReiki.note')}</p>
+      <p class="text-warm-brown leading-relaxed">{t('de', 'whatIsReiki.body')}</p>
+    </div>
+  </section>
+
+  <!-- Reiki Prinzipien -->
+  <Principles />
+
+  <!-- Ablauf: Reiki vs Fern-Reiki -->
+  <section class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
+    <div class="mx-auto max-w-5xl">
+      <SectionHeading title={t('de', 'comparison.title')} />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
+          <h3 class="font-heading text-2xl text-dark-brown italic mb-6">{t('de', 'comparison.reikiTitle')}</h3>
+          <p class="text-warm-brown leading-relaxed mb-8">{t('de', 'comparison.reikiBody')}</p>
+          <Button href="/buchen" variant="primary">Termin buchen</Button>
+        </div>
+        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
+          <h3 class="font-heading text-2xl text-dark-brown italic mb-6">{t('de', 'comparison.remoteTitle')}</h3>
+          <p class="text-warm-brown leading-relaxed mb-8">{t('de', 'comparison.remoteBody')}</p>
+          <Button href="/buchen" variant="primary">Termin buchen</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits -->
+  <ReikiBenefits />
+
+  <!-- Nach der Session -->
+  <AfterSession />
+
+  <!-- Testimonial -->
   {testimonial && (
     <section class="py-8 md:py-14 lg:py-20 px-4">
       <div class="mx-auto max-w-2xl">
@@ -36,6 +66,7 @@ const testimonial = allTestimonials[0];
     </section>
   )}
 
+  <!-- CTA -->
   <section class="py-8 md:py-14 lg:py-20 px-4 text-center bg-cream-light/50">
     <div class="mx-auto max-w-2xl">
       <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic mb-6">{t('de', 'cta.title')}</h2>

@@ -1,12 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import SectionHeading from '../../components/ui/SectionHeading.astro';
 import Button from '../../components/ui/Button.astro';
-import WhatIsReiki from '../../components/sections/WhatIsReiki.astro';
-import ReikiComparison from '../../components/sections/ReikiComparison.astro';
 import ReikiBenefits from '../../components/sections/ReikiBenefits.astro';
 import AfterSession from '../../components/sections/AfterSession.astro';
-import Pricing from '../../components/sections/Pricing.astro';
+import Principles from '../../components/sections/Principles.astro';
 import { t } from '../../i18n/index';
 import { getCollection } from 'astro:content';
 
@@ -16,12 +15,38 @@ const testimonial = allTestimonials[0];
 
 <BaseLayout title="Reiki" lang="en" description="Learn what Reiki is, how a session works, and the benefits for body, mind, and soul.">
   <Breadcrumb current="Reiki" lang="en" />
-  <h1 class="sr-only">Reiki</h1>
-  <WhatIsReiki lang="en" />
+
+  <section class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
+    <div class="mx-auto max-w-4xl text-center">
+      <h1 class="font-heading text-4xl md:text-5xl text-dark-brown italic mb-8">{t('en', 'whatIsReiki.title')}</h1>
+      <p class="text-warm-brown leading-relaxed mb-6">{t('en', 'whatIsReiki.intro')}</p>
+      <p class="text-warm-brown leading-relaxed mb-6 italic">{t('en', 'whatIsReiki.note')}</p>
+      <p class="text-warm-brown leading-relaxed">{t('en', 'whatIsReiki.body')}</p>
+    </div>
+  </section>
+
+  <Principles lang="en" />
+
+  <section class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
+    <div class="mx-auto max-w-5xl">
+      <SectionHeading title={t('en', 'comparison.title')} />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
+          <h3 class="font-heading text-2xl text-dark-brown italic mb-6">{t('en', 'comparison.reikiTitle')}</h3>
+          <p class="text-warm-brown leading-relaxed mb-8">{t('en', 'comparison.reikiBody')}</p>
+          <Button href="/en/book" variant="primary">Book a session</Button>
+        </div>
+        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
+          <h3 class="font-heading text-2xl text-dark-brown italic mb-6">{t('en', 'comparison.remoteTitle')}</h3>
+          <p class="text-warm-brown leading-relaxed mb-8">{t('en', 'comparison.remoteBody')}</p>
+          <Button href="/en/book" variant="primary">Book a session</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <ReikiBenefits lang="en" />
-  <ReikiComparison lang="en" />
   <AfterSession lang="en" />
-  <Pricing lang="en" />
 
   {testimonial && (
     <section class="py-8 md:py-14 lg:py-20 px-4">

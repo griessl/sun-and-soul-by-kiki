@@ -24,14 +24,12 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
       <p class="text-warm-brown leading-relaxed mb-6 italic">{t(lang, 'whatIsReiki.note')}</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <Button href="/en/book" variant="primary">{t(lang, 'whatIsReiki.bookBtn')}</Button>
-        <Button href="/en/reiki">Learn more about Reiki</Button>
+        <Button href="/en/reiki">Learn more</Button>
       </div>
     </div>
   </section>
 
-  <Pricing lang="en" />
-
-  <section id="testimonials" class="py-8 md:py-14 lg:py-20 px-4 bg-cream-light/50">
+  <section id="testimonials" class="py-8 md:py-14 lg:py-20 px-4">
     <div class="mx-auto max-w-4xl">
       <SectionHeading title={t(lang, 'testimonials.title')} subtitle={t(lang, 'testimonials.subtitle')} />
       <div class="space-y-6 md:space-y-8">
@@ -45,6 +43,8 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
     </div>
   </section>
 
+  <Pricing lang="en" />
+
   <section id="ueber-mich" class="py-8 md:py-14 lg:py-20 px-4">
     <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
       <div class="aspect-[3/4] bg-cream-dark rounded-sm overflow-hidden max-w-sm md:max-w-md mx-auto">
@@ -53,6 +53,7 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
       <div>
         <p class="text-gold text-sm tracking-[0.2em] uppercase mb-3">{t(lang, 'about.tagline')}</p>
         <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic leading-tight mb-4 md:mb-6">{t(lang, 'about.greeting')}</h2>
+        <p class="text-warm-brown leading-relaxed mb-4">{t(lang, 'about.intro1')}</p>
         <p class="text-warm-brown leading-relaxed mb-6 md:mb-8">{t(lang, 'about.intro2')}</p>
         <Button href="/en/about">More about me</Button>
       </div>

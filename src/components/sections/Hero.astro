@@ -13,9 +13,8 @@ const { lang = 'de' } = Astro.props;
       Sun & Soul<br />by Kiki
     </h1>
     <p class="text-warm-brown text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed">{t(lang, 'hero.subtitle')}</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <div class="flex justify-center">
       <Button href={getBookingPath(lang)} variant="primary">{t(lang, 'hero.bookBtn')}</Button>
-      <Button href={lang === 'en' ? '/en/reiki' : '/reiki'}>{t(lang, 'hero.learnMore')}</Button>
     </div>
   </div>
 </section>
