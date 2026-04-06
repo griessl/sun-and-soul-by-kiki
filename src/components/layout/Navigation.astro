@@ -11,6 +11,18 @@ const navItems = getNavItems(lang);
 const bookingPath = getBookingPath(lang);
 const otherLang: Lang = lang === 'de' ? 'en' : 'de';
 const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+// Determine which nav item is active based on current page path
+function isNavActive(item: typeof navItems[0]): boolean {
+  const itemHref = item.href.replace(/\/$/, '') || '/';
+  if (currentPath === itemHref) return true;
+  // Check children paths
+  if (item.children) {
+    return item.children.some(child => currentPath === (child.href.replace(/\/$/, '') || '/'));
+  }
+  return false;
+}
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-cream/90 backdrop-blur-sm">
@@ -22,19 +34,54 @@ const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
 
     <!-- Desktop Nav -->
     <ul class="hidden md:flex items-center gap-8">
-      {navItems.map((item) => (
-        <li>
-          <a
-            href={item.href}
-            data-scroll-href={item.scrollHref}
-            class="nav-link text-warm-brown hover:text-dark-brown transition-colors text-sm tracking-wide uppercase"
-            data-nav-item
-            data-section={item.sectionId}
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
+      {navItems.map((item) => {
+        const active = isNavActive(item);
+        return item.children ? (
+          <li class="relative group">
+            <a
+              href={item.href}
+              data-scroll-href={item.scrollHref}
+              class:list={[
+                'nav-link text-sm tracking-wide uppercase transition-colors cursor-pointer',
+                active ? 'text-dark-brown font-semibold' : 'text-warm-brown hover:text-dark-brown',
+              ]}
+              data-nav-item
+              data-section={item.sectionId}
+            >
+              {item.label}
+            </a>
+            <div class="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <ul class="bg-cream/95 backdrop-blur-sm border border-cream-dark rounded-sm shadow-lg py-2 min-w-[160px]">
+                {item.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      class="block px-5 py-2 text-sm text-warm-brown hover:text-dark-brown hover:bg-cream-light/60 transition-colors"
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </li>
+        ) : (
+          <li>
+            <a
+              href={item.href}
+              data-scroll-href={item.scrollHref}
+              class:list={[
+                'nav-link text-sm tracking-wide uppercase transition-colors',
+                active ? 'text-dark-brown font-semibold' : 'text-warm-brown hover:text-dark-brown',
+              ]}
+              data-nav-item
+              data-section={item.sectionId}
+            >
+              {item.label}
+            </a>
+          </li>
+        );
+      })}
       <li>
         <Button href={bookingPath} variant="primary" size="sm">{t(lang, 'nav.book')}</Button>
       </li>
@@ -65,17 +112,29 @@ const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
   <div id="mobile-menu" class="hidden md:hidden bg-cream/95 backdrop-blur-sm border-t border-cream-dark">
     <ul class="flex flex-col items-center gap-6 py-8">
       {navItems.map((item) => (
-        <li>
-          <a
-            href={item.href}
-            data-scroll-href={item.scrollHref}
-            class="nav-link text-warm-brown hover:text-dark-brown transition-colors text-sm tracking-wide uppercase"
-            data-nav-item
-            data-section={item.sectionId}
-          >
-            {item.label}
-          </a>
-        </li>
+        <>
+          <li>
+            <a
+              href={item.href}
+              data-scroll-href={item.scrollHref}
+              class="nav-link text-warm-brown hover:text-dark-brown transition-colors text-sm tracking-wide uppercase"
+              data-nav-item
+              data-section={item.sectionId}
+            >
+              {item.label}
+            </a>
+          </li>
+          {item.children && item.children.map((child) => (
+            <li>
+              <a
+                href={child.href}
+                class="text-warm-brown/70 hover:text-dark-brown transition-colors text-xs tracking-wide pl-4"
+              >
+                — {child.label}
+              </a>
+            </li>
+          ))}
+        </>
       ))}
       <li>
         <Button href={bookingPath} variant="primary" size="sm">{t(lang, 'nav.book')}</Button>
@@ -110,7 +169,7 @@ const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
     });
   });
 
-  // On homepage: use scroll hrefs instead of page links
+  // On homepage: use scroll hrefs instead of page links (but NOT for items with dropdowns that link to subpages)
   const isHomepage = window.location.pathname === '/' || window.location.pathname === '/en' || window.location.pathname === '/en/';
   if (isHomepage) {
     document.querySelectorAll('[data-scroll-href]').forEach((link) => {
@@ -119,52 +178,49 @@ const switchPath = getLocalizedPath(Astro.url.pathname, otherLang);
         link.setAttribute('href', scrollHref);
       }
     });
-  }
 
-  // Active section highlighting - scroll-based, no dead zones
-  const navSections = ['home', 'reiki', 'sound-and-soul', 'testimonials', 'ueber-mich'];
-  const navLinks = document.querySelectorAll('[data-nav-item]');
+    // Active section highlighting - scroll-based on homepage
+    const navSections = ['home', 'reiki', 'sound-and-soul', 'testimonials', 'ueber-mich'];
+    const navLinks = document.querySelectorAll('[data-nav-item]');
 
-  function setActiveNav(activeSectionId: string) {
-    navLinks.forEach((link) => {
-      const linkSection = link.getAttribute('data-section');
-      const isActive = linkSection === activeSectionId;
-      link.classList.toggle('text-dark-brown', isActive);
-      link.classList.toggle('font-semibold', isActive);
-      if (isActive) {
-        link.classList.remove('text-warm-brown');
-      } else {
-        link.classList.add('text-warm-brown');
+    function setActiveNav(activeSectionId: string) {
+      navLinks.forEach((link) => {
+        const linkSection = link.getAttribute('data-section');
+        const isActive = linkSection === activeSectionId;
+        link.classList.toggle('text-dark-brown', isActive);
+        link.classList.toggle('font-semibold', isActive);
+        if (isActive) {
+          link.classList.remove('text-warm-brown');
+        } else {
+          link.classList.add('text-warm-brown');
+        }
+      });
+    }
+
+    function updateActiveSection() {
+      const scrollY = window.scrollY + window.innerHeight * 0.3;
+      let activeId = navSections[0];
+      for (const id of navSections) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= scrollY) {
+          activeId = id;
+        }
+      }
+      setActiveNav(activeId);
+    }
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveSection();
+          ticking = false;
+        });
+        ticking = true;
       }
     });
+    updateActiveSection();
   }
-
-  function updateActiveSection() {
-    const scrollY = window.scrollY + window.innerHeight * 0.3;
-    let activeId = navSections[0];
-
-    // Find all sections with nav-matching IDs and pick the one we've scrolled past
-    for (const id of navSections) {
-      const el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollY) {
-        activeId = id;
-      }
-    }
-    setActiveNav(activeId);
-  }
-
-  // Throttled scroll listener
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateActiveSection();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-  updateActiveSection();
 </script>
 
 <style>

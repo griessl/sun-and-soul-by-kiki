@@ -3,14 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
 import Mission from '../components/sections/Mission.astro';
 import WhatIsReiki from '../components/sections/WhatIsReiki.astro';
-import ReikiBenefits from '../components/sections/ReikiBenefits.astro';
-import ReikiComparison from '../components/sections/ReikiComparison.astro';
+import Pricing from '../components/sections/Pricing.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
 import Button from '../components/ui/Button.astro';
-import Principles from '../components/sections/Principles.astro';
-import AfterSession from '../components/sections/AfterSession.astro';
-import Pricing from '../components/sections/Pricing.astro';
-import { t, tList } from '../i18n/index';
+import { t } from '../i18n/index';
 import { getCollection } from 'astro:content';
 
 const lang = 'de' as const;
@@ -19,22 +15,19 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
 ---
 
 <BaseLayout title="Home">
-  <!-- Home -->
+  <!-- 1. Hero -->
   <Hero />
 
-  <!-- Mission / Über mich Teaser -->
+  <!-- 2. Meine Mission -->
   <Mission />
 
-  <!-- Reiki -->
+  <!-- 3. Was ist Reiki -->
   <WhatIsReiki />
-  <ReikiBenefits />
-  <ReikiComparison />
-  <AfterSession />
 
-  <!-- Preise -->
+  <!-- 4. Sessions und Preise -->
   <Pricing />
 
-  <!-- Sound & Soul -->
+  <!-- 5. Sound & Soul -->
   <section id="sound-and-soul" class="py-20 px-4">
     <div class="text-center max-w-2xl mx-auto">
       <p class="text-gold text-sm tracking-[0.3em] uppercase mb-6">{t(lang, 'soundAndSoul.comingSoon')}</p>
@@ -45,7 +38,7 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
     </div>
   </section>
 
-  <!-- Testimonials -->
+  <!-- 6. Testimonials -->
   <section id="testimonials" class="py-20 px-4 bg-cream-light/50">
     <div class="mx-auto max-w-4xl">
       <SectionHeading title={t(lang, 'testimonials.title')} subtitle={t(lang, 'testimonials.subtitle')} />
@@ -60,33 +53,20 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
     </div>
   </section>
 
-  <!-- Über mich Teaser -->
+  <!-- 7. Über mich -->
   <section id="ueber-mich" class="py-20 px-4">
+    <div class="mx-auto max-w-5xl">
+      <SectionHeading title="Über mich" />
+    </div>
     <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div class="aspect-[3/4] bg-cream-dark rounded-sm overflow-hidden max-w-md mx-auto">
         <img src="/images/kiki-ocean.jpg" alt="Kiki — Sun & Soul Reiki" class="w-full h-full object-cover object-top" loading="lazy" />
       </div>
       <div>
-        <p class="text-gold text-sm tracking-[0.2em] uppercase mb-3">{t(lang, 'about.tagline')}</p>
-        <h2 class="font-heading text-4xl md:text-5xl text-dark-brown italic leading-tight mb-6">{t(lang, 'about.greeting')}</h2>
+        <h3 class="font-heading text-2xl md:text-3xl text-dark-brown italic leading-tight mb-6">{t(lang, 'about.greeting')}</h3>
         <p class="text-warm-brown leading-relaxed mb-4">{t(lang, 'about.intro1')}</p>
         <p class="text-warm-brown leading-relaxed mb-8">{t(lang, 'about.intro2')}</p>
-        <Button href="/ueber-mich">Mehr über mich</Button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Reiki Prinzipien -->
-  <Principles />
-
-  <!-- CTA -->
-  <section class="py-20 px-4 text-center bg-cream-light/50">
-    <div class="mx-auto max-w-2xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-dark-brown italic mb-6">{t(lang, 'cta.title')}</h2>
-      <p class="text-warm-brown leading-relaxed mb-8">{t(lang, 'cta.text')}</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <Button href="/buchen" variant="primary">{t(lang, 'cta.bookBtn')}</Button>
-        <Button href="/kontakt">{t(lang, 'cta.contactBtn')}</Button>
+        <Button href="/ueber-mich">Mehr erfahren</Button>
       </div>
     </div>
   </section>

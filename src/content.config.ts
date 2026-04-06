@@ -16,11 +16,15 @@ const services = defineCollection({
   schema: z.object({
     name_de: z.string(),
     name_en: z.string(),
-    description_de: z.string(),
-    description_en: z.string(),
-    duration: z.number(),
+    intro_de: z.string().optional().default(''),
+    intro_en: z.string().optional().default(''),
+    steps_de: z.string().optional().default(''),
+    steps_en: z.string().optional().default(''),
+    price_label_de: z.string().optional().default(''),
+    price_label_en: z.string().optional().default(''),
     price: z.number(),
     type: z.enum(['reiki', 'remote-reiki', 'sound-and-soul']),
+    order: z.number().optional().default(99),
     active: z.boolean().default(true),
   }),
 });

@@ -2,24 +2,23 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
 import Button from '../components/ui/Button.astro';
-import Principles from '../components/sections/Principles.astro';
-import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import { t, tList } from '../i18n/index';
 
 const lang = 'de' as const;
 ---
 
 <BaseLayout title="Über mich" description="Lerne Kiki kennen — Zertifizierte Reiki-Praktizierende in Berlin.">
-  <Breadcrumb current="Über mich" />
 
   <section class="py-20 px-4">
+    <div class="mx-auto max-w-5xl">
+      <SectionHeading title="Über mich" />
+    </div>
     <div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       <div class="aspect-[3/4] bg-cream-dark rounded-sm overflow-hidden max-w-md mx-auto">
         <img src="/images/kiki-ocean.jpg" alt="Kiki — Sun & Soul Reiki" class="w-full h-full object-cover object-top" loading="eager" />
       </div>
       <div>
-        <p class="text-gold text-sm tracking-[0.2em] uppercase mb-3">{t(lang, 'about.tagline')}</p>
-        <h1 class="font-heading text-4xl md:text-5xl text-dark-brown italic leading-tight mb-6">{t(lang, 'about.greeting')}</h1>
+        <h3 class="font-heading text-2xl md:text-3xl text-dark-brown italic leading-tight mb-6">{t(lang, 'about.greeting')}</h3>
         <p class="text-warm-brown leading-relaxed mb-4">{t(lang, 'about.intro1')}</p>
         <p class="text-warm-brown leading-relaxed">{t(lang, 'about.intro2')}</p>
       </div>
@@ -28,33 +27,70 @@ const lang = 'de' as const;
 
   <section class="py-20 px-4 bg-cream-light/50">
     <div class="mx-auto max-w-3xl">
-      <SectionHeading title={t(lang, 'about.storyTitle')} />
-      <div class="space-y-6 text-warm-brown leading-relaxed">
-        {[1,2,3,4,5].map(i => <p>{t(lang, `about.story${i}`)}</p>)}
-      </div>
-    </div>
-  </section>
+      <SectionHeading title="Ein paar Dinge über mich" />
+      <div class="space-y-10">
 
-  <section class="py-20 px-4">
-    <div class="mx-auto max-w-4xl">
-      <SectionHeading title={t(lang, 'about.factsTitle')} />
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm">
-          <h3 class="font-heading text-xl text-dark-brown italic mb-4">{t(lang, 'about.passionsTitle')}</h3>
-          <ul class="space-y-2 text-warm-brown text-sm">
-            {tList(lang, 'about.passions').map(item => (
-              <li class="flex items-start gap-2"><span class="text-gold shrink-0">&bull;</span> {item}</li>
-            ))}
+        <div>
+          <h3 class="font-heading text-xl text-dark-brown font-semibold mb-3">Heimat:</h3>
+          <p class="text-warm-brown leading-relaxed">Ich bin in einer Kleinstadt in Brandenburg aufgewachsen und lebe seit 7 Jahren in Berlin.</p>
+        </div>
+
+        <div>
+          <h3 class="font-heading text-xl text-dark-brown font-semibold mb-3">Studium und Forschung:</h3>
+          <p class="text-warm-brown leading-relaxed">Eigentlich habe ich Gartenbauwissenschaften studiert und dabei unter anderem Viren in Birken untersucht. Mich hat schon immer interessiert, was um uns herum passiert und wie Dinge grundlegend funktionieren.</p>
+        </div>
+
+        <div>
+          <h3 class="font-heading text-xl text-dark-brown font-semibold mb-3">Ich bin:</h3>
+          <p class="text-warm-brown leading-loose">ein Frühlingsmensch - Langschläferin - Naturliebhaberin - Yogamaus - Foodie - Quasselstrippe</p>
+        </div>
+
+        <div>
+          <h3 class="font-heading text-xl text-dark-brown font-semibold mb-3">Bewegung und Abenteuer:</h3>
+          <p class="text-warm-brown leading-loose">Tanzen - Windsurfen - Reiten - Ballett - Japanische Stockkampfkunst - Messerwerfen - Step Aerobic - Rudern - Yoga - Pilates - Jetski fahren</p>
+        </div>
+
+        <div>
+          <h3 class="font-heading text-xl text-dark-brown font-semibold mb-3">Ruhe und Ausgleich:</h3>
+          <ul class="space-y-2 text-warm-brown leading-relaxed list-disc list-inside">
+            <li>zum Schweigen ins Kloster gehen</li>
+            <li>3–4 Tage komplett in Ruhe draußen auf einer Wiese zu liegen und nichts zu tun</li>
           </ul>
         </div>
-        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm">
-          <h3 class="font-heading text-xl text-dark-brown italic mb-4">{t(lang, 'about.joysTitle')}</h3>
-          <ul class="space-y-2 text-warm-brown text-sm">
-            {tList(lang, 'about.joys').map(item => (
-              <li class="flex items-start gap-2"><span class="text-gold shrink-0">&bull;</span> {item}</li>
-            ))}
+
+        <div>
+          <h3 class="font-heading text-xl text-dark-brown font-semibold mb-3">Orakel auf Abruf:</h3>
+          <ul class="space-y-2 text-warm-brown leading-relaxed list-disc list-inside">
+            <li>meine Träume sagen mir manchmal die Zukunft voraus</li>
           </ul>
         </div>
+
+        <div>
+          <h3 class="font-heading text-xl text-dark-brown font-semibold mb-3">Herausforderungen:</h3>
+          <ul class="space-y-2 text-warm-brown leading-relaxed list-disc list-inside">
+            <li>nervige Geräusche (ich bin leicht neurodivergent)</li>
+            <li>zu wenig Schlaf</li>
+            <li>zu viele Menschen an einem Ort</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-heading text-xl text-dark-brown font-semibold mb-3">Mein Sternzeichen:</h3>
+          <p class="text-warm-brown leading-relaxed">Sonne im Widder - Aszendent Skorpion - Mond im Löwe</p>
+        </div>
+
+        <div>
+          <h3 class="font-heading text-xl text-dark-brown font-semibold mb-3">Meine Lieblingsbücher:</h3>
+          <ul class="space-y-2 text-warm-brown leading-relaxed list-disc list-inside">
+            <li>Ask Your Guides – Sonia Choquette</li>
+            <li>Three Waves of Volunteers & The New Earth – Dolores Cannon</li>
+            <li>The Alchemist – Paulo Coelho</li>
+            <li>The Woman Code – Alisa Vitti</li>
+            <li>Untamed – Glennon Doyle</li>
+            <li>How to Think Like a Monk – Jay Shetty</li>
+          </ul>
+        </div>
+
       </div>
     </div>
   </section>
@@ -69,8 +105,6 @@ const lang = 'de' as const;
       </div>
     </div>
   </section>
-
-  <Principles lang="de" />
 
   <section class="py-20 px-4 text-center">
     <div class="mx-auto max-w-2xl">

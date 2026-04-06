@@ -75,15 +75,31 @@ export function getLocalizedPath(currentPath: string, targetLang: Lang): string 
   return reverseSlugMap[cleanPath] ?? (cleanPath.replace(/^\/en/, '') || '/');
 }
 
-export function getNavItems(lang: Lang) {
+export type NavItem = {
+  label: string;
+  href: string;
+  scrollHref: string;
+  sectionId: string;
+  children?: { label: string; href: string }[];
+};
+
+export function getNavItems(lang: Lang): NavItem[] {
   const prefix = lang === 'en' ? '/en' : '';
   const home = `${prefix}/`;
+  const aboutHref = lang === 'en' ? '/en/about' : '/ueber-mich';
+  const contactHref = lang === 'en' ? '/en/contact' : '/kontakt';
   return [
     { label: t(lang, 'nav.home'), href: home, scrollHref: `${home}#home`, sectionId: 'home' },
     { label: t(lang, 'nav.reiki'), href: `${prefix}/reiki`, scrollHref: `${home}#reiki`, sectionId: 'reiki' },
     { label: t(lang, 'nav.soundAndSoul'), href: `${home}#sound-and-soul`, scrollHref: `${home}#sound-and-soul`, sectionId: 'sound-and-soul' },
     { label: t(lang, 'nav.testimonials'), href: `${home}#testimonials`, scrollHref: `${home}#testimonials`, sectionId: 'testimonials' },
-    { label: t(lang, 'nav.about'), href: lang === 'en' ? '/en/about' : '/ueber-mich', scrollHref: `${home}#ueber-mich`, sectionId: 'ueber-mich' },
+    {
+      label: t(lang, 'nav.about'), href: aboutHref, scrollHref: `${home}#ueber-mich`, sectionId: 'ueber-mich',
+      children: [
+        { label: lang === 'de' ? 'Über Kiki' : 'About Kiki', href: aboutHref },
+        { label: lang === 'de' ? 'Kontakt' : 'Contact', href: contactHref },
+      ],
+    },
   ];
 }
 

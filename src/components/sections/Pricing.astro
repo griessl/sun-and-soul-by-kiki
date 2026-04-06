@@ -8,29 +8,66 @@ interface Props { lang?: Lang; }
 const { lang = 'de' } = Astro.props;
 
 const allServices = await getCollection('services');
-const services = allServices.filter(s => s.data.active);
+const services = allServices
+  .filter(s => s.data.active)
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const images: Record<string, string> = {
+  'reiki': 'https://images.unsplash.com/photo-1757066033634-bbbf874ce525?w=800&q=80&auto=format&fit=crop',
+  'remote-reiki': 'https://images.unsplash.com/photo-1758466873790-c8df1fada4ea?w=800&q=80&auto=format&fit=crop',
+};
 ---
 
 <section id="preise" class="py-20 px-4">
-  <div class="mx-auto max-w-4xl">
-    <SectionHeading
-      title={lang === 'de' ? 'Sessions & Preise' : 'Sessions & Pricing'}
-    />
+  <div class="mx-auto max-w-5xl">
+    <SectionHeading title={lang === 'de' ? 'Sessions & Preise' : 'Sessions & Pricing'} />
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-      {services.map((service) => (
-        <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
-          <h3 class="font-heading text-2xl text-dark-brown italic mb-4">
-            {lang === 'de' ? service.data.name_de : service.data.name_en}
-          </h3>
-          <p class="text-gold text-3xl font-heading mb-2">{service.data.price} &euro;</p>
-          <p class="text-warm-brown/60 text-sm mb-6">{service.data.duration} {lang === 'de' ? 'Minuten' : 'minutes'}</p>
-          <p class="text-warm-brown text-sm leading-relaxed mb-6">
-            {lang === 'de' ? service.data.description_de : service.data.description_en}
-          </p>
-          <Button href={getBookingPath(lang)} variant="primary">{lang === 'de' ? 'Termin buchen' : 'Book a session'}</Button>
-        </div>
-      ))}
+    <div class="space-y-16">
+      {services.map((service) => {
+        const name = lang === 'de' ? service.data.name_de : service.data.name_en;
+        const intro = lang === 'de' ? service.data.intro_de : service.data.intro_en;
+        const stepsRaw = lang === 'de' ? service.data.steps_de : service.data.steps_en;
+        const steps = stepsRaw ? stepsRaw.split('|').filter(Boolean) : [];
+        const priceLabel = lang === 'de' ? service.data.price_label_de : service.data.price_label_en;
+        const image = images[service.data.type] ?? '/images/kiki-ocean.jpg';
+
+        return (
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <!-- Text column -->
+            <div>
+              <h3 class="font-heading text-2xl md:text-3xl text-dark-brown italic mb-6 leading-tight">{name}</h3>
+
+              {intro && (
+                <p class="text-warm-brown leading-relaxed mb-6">{intro}</p>
+              )}
+
+              {steps.length > 0 && (
+                <ol class="space-y-4 mb-8">
+                  {steps.map((step, i) => (
+                    <li class="flex gap-3 text-warm-brown leading-relaxed">
+                      <span class="text-gold font-semibold shrink-0">{i + 1}.</span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              )}
+
+              <p class="text-dark-brown font-semibold mb-8">
+                {priceLabel} = {service.data.price.toFixed(2).replace('.', ',')} €
+              </p>
+
+              <Button href={getBookingPath(lang)} variant="primary">
+                {lang === 'de' ? 'Termin buchen' : 'Book a session'}
+              </Button>
+            </div>
+
+            <!-- Image column -->
+            <div class="aspect-[4/3] bg-cream-dark rounded-sm overflow-hidden">
+              <img src={image} alt={name} class="w-full h-full object-cover" loading="lazy" />
+            </div>
+          </div>
+        );
+      })}
     </div>
   </div>
 </section>

@@ -1,18 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumb from '../components/ui/Breadcrumb.astro';
 import WhatIsReiki from '../components/sections/WhatIsReiki.astro';
-import ReikiComparison from '../components/sections/ReikiComparison.astro';
 import ReikiBenefits from '../components/sections/ReikiBenefits.astro';
 import AfterSession from '../components/sections/AfterSession.astro';
 import Pricing from '../components/sections/Pricing.astro';
+import Principles from '../components/sections/Principles.astro';
 ---
 
 <BaseLayout title="Reiki" description="Erfahre was Reiki ist, wie eine Sitzung abläuft und welche Vorteile Reiki für Körper, Geist und Seele hat.">
-  <Breadcrumb current="Reiki" />
-  <WhatIsReiki />
+  <WhatIsReiki showFull={true} />
   <ReikiBenefits />
-  <ReikiComparison />
-  <AfterSession />
   <Pricing />
+  <AfterSession />
+  <Principles />
 </BaseLayout>

@@ -3,20 +3,36 @@ import SectionHeading from '../ui/SectionHeading.astro';
 import Button from '../ui/Button.astro';
 import { t, getBookingPath, type Lang } from '../../i18n/index';
 
-interface Props { lang?: Lang; }
-const { lang = 'de' } = Astro.props;
+interface Props { lang?: Lang; showFull?: boolean; }
+const { lang = 'de', showFull = false } = Astro.props;
+const reikiPath = lang === 'en' ? '/en/reiki' : '/reiki';
 ---
 
 <section id="reiki" class="py-20 px-4 bg-cream-light/50">
   <div class="mx-auto max-w-4xl text-center">
     <SectionHeading title={t(lang, 'whatIsReiki.title')} />
     <p class="text-warm-brown leading-relaxed mb-6">{t(lang, 'whatIsReiki.intro')}</p>
-    <p class="text-warm-brown leading-relaxed mb-6 italic">{t(lang, 'whatIsReiki.note')}</p>
-    <p class="text-warm-brown leading-relaxed mb-10">{t(lang, 'whatIsReiki.body')}</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <Button href={getBookingPath(lang)} variant="primary">{t(lang, 'whatIsReiki.bookBtn')}</Button>
-      <Button href="#nach-der-session">{t(lang, 'whatIsReiki.sessionBtn')}</Button>
-      <Button href="#vorteile">{t(lang, 'whatIsReiki.benefitsBtn')}</Button>
-    </div>
+
+    {showFull ? (
+      <>
+        <p class="text-warm-brown leading-relaxed mb-6">{t(lang, 'whatIsReiki.bodyFull')}</p>
+        <p class="text-warm-brown leading-relaxed mb-6">{t(lang, 'whatIsReiki.para2')}</p>
+        <p class="text-warm-brown leading-relaxed mb-6">{t(lang, 'whatIsReiki.para3')}</p>
+        <p class="text-warm-brown leading-relaxed mb-6 italic">{t(lang, 'whatIsReiki.note')}</p>
+        <p class="text-warm-brown leading-relaxed mb-10 italic">{t(lang, 'whatIsReiki.closing')}</p>
+        <div class="flex justify-center">
+          <Button href={getBookingPath(lang)} variant="primary">{t(lang, 'whatIsReiki.bookBtn')}</Button>
+        </div>
+      </>
+    ) : (
+      <>
+        <p class="text-warm-brown leading-relaxed mb-4">{t(lang, 'whatIsReiki.bodyFull')}</p>
+        <p class="text-warm-brown text-2xl tracking-widest mb-4">...</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href={getBookingPath(lang)} variant="primary">{t(lang, 'whatIsReiki.bookBtn')}</Button>
+          <Button href={reikiPath}>{t(lang, 'whatIsReiki.readMoreBtn')}</Button>
+        </div>
+      </>
+    )}
   </div>
 </section>
