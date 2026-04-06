@@ -90,7 +90,7 @@ export function getNavItems(lang: Lang): NavItem[] {
   const contactHref = lang === 'en' ? '/en/contact' : '/kontakt';
   return [
     { label: t(lang, 'nav.home'), href: home, scrollHref: `${home}#home`, sectionId: 'home' },
-    { label: t(lang, 'nav.reiki'), href: `${prefix}/reiki`, scrollHref: `${home}#reiki`, sectionId: 'reiki' },
+    { label: t(lang, 'nav.reiki'), href: `${prefix}/reiki`, scrollHref: '', sectionId: 'reiki' },
     { label: t(lang, 'nav.soundAndSoul'), href: `${home}#sound-and-soul`, scrollHref: `${home}#sound-and-soul`, sectionId: 'sound-and-soul' },
     { label: t(lang, 'nav.testimonials'), href: `${home}#testimonials`, scrollHref: `${home}#testimonials`, sectionId: 'testimonials' },
     {
