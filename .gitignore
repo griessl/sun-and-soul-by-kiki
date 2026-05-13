@@ -3,6 +3,10 @@ dist/
 # generated types
 .astro/
 
+# Vercel / Netlify CLI caches
+.vercel/
+.netlify/
+
 # dependencies
 node_modules/
 

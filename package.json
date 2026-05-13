@@ -7,13 +7,15 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "cms": "npx decap-server & astro dev",
     "build": "node scripts/optimize-images.mjs && astro build",
     "optimize-images": "node scripts/optimize-images.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "setup-cal": "node --env-file=.env scripts/setup-cal.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/vercel": "^10.0.7",
     "@fontsource/lora": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
     "@tailwindcss/vite": "^4.2.2",
@@ -21,7 +23,6 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
-    "decap-server": "^3.6.0",
     "sharp": "^0.34.5"
   }
 }

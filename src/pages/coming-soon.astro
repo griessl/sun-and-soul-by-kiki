@@ -1,0 +1,272 @@
+---
+// Coming-Soon-Seite: minimal & elegant, mit verstecktem Passwort-Eingabe für Preview-Zugang.
+// Rendert für ALLE URLs solange COMING_SOON_ENABLED=true und kein Bypass-Cookie gesetzt ist.
+// Die Middleware (src/middleware.ts) macht die Magie.
+
+// Optional: Fehlerflag aus Query (?error=1 → falsches Passwort)
+const url = new URL(Astro.request.url);
+const error = url.searchParams.get('error');
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO: trotz Coming-Soon möglichst viel Brand-Info kommunizieren -->
+    <title>Sun & Soul by Kiki — Reiki Sessions in Berlin & Online | Demnächst</title>
+    <meta name="description" content="Sun & Soul by Kiki — Zertifizierte Reiki-Praktizierende in Berlin und Online. Reiki-Sessions nach Usui Reiki Ryoho Tradition. Die Website geht in Kürze live." />
+    <link rel="canonical" href="https://sunandsoulbykiki.de/" />
+    <link rel="alternate" hreflang="de" href="https://sunandsoulbykiki.de/" />
+    <link rel="alternate" hreflang="en" href="https://sunandsoulbykiki.de/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://sunandsoulbykiki.de/" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sun & Soul by Kiki — Reiki in Berlin & Online" />
+    <meta property="og:description" content="Reiki-Sessions nach Usui Reiki Ryoho. Berlin Schöneberg & Online. Demnächst live." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sunandsoulbykiki.de/" />
+    <meta property="og:image" content="https://sunandsoulbykiki.de/images/kiki-hero.jpg" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="Sun & Soul by Kiki" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sun & Soul by Kiki — Reiki in Berlin & Online" />
+    <meta name="twitter:description" content="Reiki-Sessions nach Usui Reiki Ryoho. Berlin Schöneberg & Online." />
+    <meta name="twitter:image" content="https://sunandsoulbykiki.de/images/kiki-hero.jpg" />
+
+    <!-- Schema.org LocalBusiness -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "HealthAndBeautyBusiness",
+      "name": "Sun & Soul by Kiki",
+      "description": "Reiki-Sessions in Berlin und Online. Zertifizierte Reiki-Praktizierende (Usui Reiki Ryoho).",
+      "url": "https://sunandsoulbykiki.de",
+      "image": "https://sunandsoulbykiki.de/images/kiki-hero.jpg",
+      "email": "by-kiki@gmx.de",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Berlin",
+        "addressRegion": "Berlin",
+        "addressCountry": "DE",
+      },
+      "founder": {
+        "@type": "Person",
+        "name": "Frederike Helders",
+        "alternateName": "Kiki",
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Berlin" },
+        { "@type": "Country", "name": "Germany" },
+      ],
+      "serviceType": ["Reiki", "Fern-Reiki", "Sound & Soul"],
+      "availableLanguage": ["German", "English"],
+      "priceRange": "€€",
+      "sameAs": [
+        "https://www.instagram.com/sunandsoul_bykiki/",
+      ],
+    })} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Lora:ital,wght@0,400;0,500&display=swap" />
+
+    <style>
+      :root {
+        --cream: #F5F0E8;
+        --cream-light: #FAF7F2;
+        --cream-dark: #EDE5D8;
+        --warm-brown: #8B6F47;
+        --dark-brown: #4A3728;
+        --gold: #C4956A;
+        --gold-light: #E8C9A0;
+        --soft-white: #FEFCF9;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        min-height: 100vh;
+        background: var(--cream);
+        color: var(--warm-brown);
+        font-family: 'Lora', Georgia, serif;
+        line-height: 1.6;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1.5rem;
+      }
+      main {
+        max-width: 560px;
+        text-align: center;
+      }
+      .eyebrow {
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 2rem;
+      }
+      h1 {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        color: var(--dark-brown);
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        line-height: 1.05;
+        margin-bottom: 1.5rem;
+      }
+      h1 .by {
+        font-size: 0.55em;
+        display: block;
+        font-style: normal;
+        font-family: 'Lora', Georgia, serif;
+        color: var(--warm-brown);
+        margin-top: 0.5rem;
+        letter-spacing: 0.02em;
+      }
+      .subtitle {
+        font-size: 1.05rem;
+        color: var(--warm-brown);
+        max-width: 440px;
+        margin: 0 auto 2.5rem;
+      }
+      .status {
+        display: inline-block;
+        font-size: 0.7rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--warm-brown);
+        padding: 0.6rem 1.5rem;
+        border: 1px solid var(--cream-dark);
+        border-radius: 999px;
+        background: var(--soft-white);
+        margin-bottom: 3rem;
+      }
+      .status::before {
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background: var(--gold);
+        border-radius: 50%;
+        margin-right: 0.6rem;
+        vertical-align: 1px;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+      }
+      .contact {
+        font-size: 0.9rem;
+        color: var(--warm-brown);
+        opacity: 0.85;
+      }
+      .contact a {
+        color: var(--gold);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.2s;
+      }
+      .contact a:hover { border-bottom-color: var(--gold); }
+      .sep { margin: 0 0.6rem; opacity: 0.5; }
+
+      /* Versteckter Passwort-Bereich, expandable via details */
+      .preview-toggle {
+        margin-top: 4rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--warm-brown);
+        opacity: 0.4;
+      }
+      .preview-toggle summary {
+        cursor: pointer;
+        list-style: none;
+        outline: none;
+        padding: 0.5rem;
+        transition: opacity 0.2s;
+      }
+      .preview-toggle summary::-webkit-details-marker { display: none; }
+      .preview-toggle[open] summary { opacity: 0.8; }
+      .preview-toggle:hover { opacity: 0.7; }
+      .preview-form {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 0.5rem;
+        max-width: 340px;
+        margin-left: auto;
+        margin-right: auto;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+      .preview-form input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        background: var(--soft-white);
+        border: 1px solid var(--cream-dark);
+        color: var(--warm-brown);
+        font-family: inherit;
+        font-size: 0.9rem;
+        outline: none;
+        border-radius: 2px;
+      }
+      .preview-form input:focus { border-color: var(--gold); }
+      .preview-form button {
+        padding: 0.75rem 1.5rem;
+        background: var(--gold);
+        color: var(--soft-white);
+        border: 0;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border-radius: 2px;
+        transition: background-color 0.2s;
+      }
+      .preview-form button:hover { background: var(--gold-light); color: var(--dark-brown); }
+      .preview-error {
+        margin-top: 0.75rem;
+        font-size: 0.75rem;
+        color: #b94a3a;
+        opacity: 0;
+      }
+      .preview-error.show { opacity: 1; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Sun & Soul by Kiki</p>
+      <h1>
+        Reiki & mehr
+        <span class="by">by Kiki</span>
+      </h1>
+      <p class="subtitle">
+        Reiki-Sessions in Berlin & Online — nach der klassischen Usui Reiki Ryoho Tradition. Die neue Website geht in Kürze live.
+      </p>
+
+      <div class="status">Coming Soon</div>
+
+      <p class="contact">
+        <a href="mailto:by-kiki@gmx.de">by-kiki@gmx.de</a>
+        <span class="sep">·</span>
+        <a href="https://www.instagram.com/sunandsoul_bykiki/" target="_blank" rel="noopener">@sunandsoul_bykiki</a>
+      </p>
+
+      <details class="preview-toggle">
+        <summary>Vorschau</summary>
+        <form class="preview-form" method="POST" action="/api/preview-login">
+          <input type="password" name="password" placeholder="Passwort" autocomplete="off" required />
+          <button type="submit">Öffnen</button>
+        </form>
+        {error && <p class="preview-error show">Falsches Passwort.</p>}
+      </details>
+    </main>
+  </body>
+</html>

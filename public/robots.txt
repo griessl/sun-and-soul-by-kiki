@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sunandsoulbykiki.de/sitemap-index.xml
+
+# Decap CMS Admin nicht indexieren
+Disallow: /admin/
