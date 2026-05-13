@@ -4,7 +4,8 @@ import { glob } from 'astro/loaders';
 const testimonials = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/testimonials' }),
   schema: z.object({
-    name: z.string(),
+    name_de: z.string(),
+    name_en: z.string(),
     text_de: z.string(),
     text_en: z.string(),
     date: z.coerce.date(),

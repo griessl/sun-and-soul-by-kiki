@@ -1,21 +1,52 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/ui/SectionHeading.astro';
-import Button from '../../components/ui/Button.astro';
+import CalEmbed from '../../components/ui/CalEmbed.astro';
+import ContactForm from '../../components/ui/ContactForm.astro';
 import { t } from '../../i18n/index';
-import siteSettings from '../../content/settings/site.json';
 
 const lang = 'en' as const;
 ---
 
-<BaseLayout title="Book a Session" lang="en" description="Book your Reiki session with Kiki in Berlin or as a remote session.">
+<BaseLayout title="Book a Session" lang="en" description="Book your Reiki session with Kiki in Berlin or as a remote session online.">
   <section class="py-20 px-4">
-    <div class="mx-auto max-w-4xl text-center">
+    <div class="mx-auto max-w-5xl">
       <SectionHeading title={t(lang, 'booking.title')} subtitle={t(lang, 'booking.subtitle')} />
-      <div class="bg-soft-white/60 backdrop-blur-sm p-12 rounded-sm">
-        <p class="text-warm-brown mb-6">{t(lang, 'booking.placeholder')}</p>
-        <p class="text-warm-brown/60 text-sm mb-6">{t(lang, 'booking.fallback')}</p>
-        <Button href={`mailto:${siteSettings.email}`} variant="primary">{t(lang, 'booking.emailBtn')}</Button>
+
+      <div class="mt-12 space-y-16">
+        <!-- Remote Reiki -->
+        <div>
+          <div class="text-center mb-6 max-w-2xl mx-auto">
+            <h3 class="font-heading text-2xl md:text-3xl italic text-dark-brown mb-3">Remote Reiki Session</h3>
+            <p class="text-warm-brown leading-relaxed">
+              60 minutes · Online video · €85<br />
+              <span class="text-warm-brown/70 text-sm">45 min Reiki treatment &amp; 15 min consultation</span>
+            </p>
+          </div>
+          <CalEmbed calLink="by-kiki/fern-reiki" namespace="fern-reiki" />
+        </div>
+
+        <!-- Berlin Schöneberg -->
+        <div>
+          <div class="text-center mb-6 max-w-2xl mx-auto">
+            <h3 class="font-heading text-2xl md:text-3xl italic text-dark-brown mb-3">Reiki Session in Berlin, Schöneberg</h3>
+            <p class="text-warm-brown leading-relaxed">
+              90 minutes · In-person in Berlin Schöneberg · €100<br />
+              <span class="text-warm-brown/70 text-sm">15 min intro · 60 min treatment · 15 min closing</span>
+            </p>
+            <p class="text-warm-brown/80 italic text-xs md:text-sm mt-4">Note: In-person bookings are requests first. Kiki confirms your slot by email. You'll receive the exact address in the confirmation mail.</p>
+          </div>
+          <CalEmbed calLink="by-kiki/reiki-berlin" namespace="reiki-berlin" />
+        </div>
+      </div>
+
+      <!-- Direct contact form -->
+      <div class="mt-20 max-w-2xl mx-auto">
+        <div class="text-center mb-8">
+          <h3 class="font-heading text-2xl md:text-3xl italic text-dark-brown mb-3">Have a question?</h3>
+          <p class="text-warm-brown/80 text-sm md:text-base">Then reach out directly:</p>
+        </div>
+        <ContactForm lang={lang} subject="Inquiry from Booking page — Sun & Soul" />
       </div>
     </div>
   </section>

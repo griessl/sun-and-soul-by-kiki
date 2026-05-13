@@ -1,0 +1,34 @@
+---
+import { t, type Lang } from '../../i18n/index';
+import siteSettings from '../../content/settings/site.json';
+
+export interface Props {
+  lang: Lang;
+  /** Optionaler Betreff für die E-Mail (überschreibt den Default). */
+  subject?: string;
+}
+const { lang, subject } = Astro.props;
+const emailSubject = subject ?? t(lang, 'contact.emailSubject');
+---
+
+<form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+  <input type="hidden" name="access_key" value={siteSettings.web3formsKey || 'YOUR_ACCESS_KEY_HERE'} />
+  <input type="hidden" name="subject" value={emailSubject} />
+  <input type="hidden" name="from_name" value="Sun & Soul by Kiki" />
+  <input type="checkbox" name="botcheck" class="hidden" />
+  <div>
+    <label for="name" class="block text-warm-brown text-sm tracking-wider uppercase mb-2">{t(lang, 'contact.name')}</label>
+    <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-soft-white/60 border border-cream-dark focus:border-gold focus:outline-none text-warm-brown placeholder-warm-brown/40" placeholder={t(lang, 'contact.namePlaceholder')} />
+  </div>
+  <div>
+    <label for="email" class="block text-warm-brown text-sm tracking-wider uppercase mb-2">{t(lang, 'contact.email')}</label>
+    <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-soft-white/60 border border-cream-dark focus:border-gold focus:outline-none text-warm-brown placeholder-warm-brown/40" placeholder={t(lang, 'contact.emailPlaceholder')} />
+  </div>
+  <div>
+    <label for="message" class="block text-warm-brown text-sm tracking-wider uppercase mb-2">{t(lang, 'contact.message')}</label>
+    <textarea id="message" name="message" required rows="5" class="w-full px-4 py-3 bg-soft-white/60 border border-cream-dark focus:border-gold focus:outline-none text-warm-brown placeholder-warm-brown/40 resize-none" placeholder={t(lang, 'contact.messagePlaceholder')}></textarea>
+  </div>
+  <div class="text-center">
+    <button type="submit" class="inline-block bg-gold text-soft-white hover:bg-gold-light hover:text-dark-brown transition-colors px-8 py-3 text-sm tracking-wider uppercase cursor-pointer">{t(lang, 'contact.sendBtn')}</button>
+  </div>
+</form>

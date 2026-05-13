@@ -45,7 +45,7 @@ const testimonials = allTestimonials.sort((a, b) => b.data.date.getTime() - a.da
         {testimonials.map((item) => (
           <div class="bg-soft-white/60 backdrop-blur-sm p-8 rounded-sm text-center">
             <p class="text-warm-brown leading-relaxed italic text-lg mb-4">&ldquo;{item.data.text_en}&rdquo;</p>
-            <p class="text-gold text-sm tracking-wider uppercase">{item.data.name}</p>
+            <p class="text-gold text-sm tracking-wider uppercase">{item.data.name_en}</p>
           </div>
         ))}
       </div>

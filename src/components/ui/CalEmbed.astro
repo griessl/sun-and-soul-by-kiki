@@ -1,0 +1,114 @@
+---
+// Cal.com EU Inline-Embed
+// Doc: https://cal.com/docs/core-features/embed
+// EU-Region: Script + origin auf cal.eu (Hosting auf www.cal.eu)
+export interface Props {
+  /** z.B. "by-kiki/fern-reiki" */
+  calLink: string;
+  /** Eindeutiger Namespace pro Embed auf der Seite */
+  namespace: string;
+}
+const { calLink, namespace } = Astro.props;
+const elementId = `cal-embed-${namespace}`;
+---
+
+<!-- Wrapper bricht auf Mobile aus dem Parent-Padding aus, nimmt volle Viewport-Breite -->
+<div class="cal-embed-breakout">
+  <div id={elementId} class="cal-embed-host"></div>
+</div>
+
+<style>
+  /* Auf Mobile: aus dem px-4 Parent-Padding ausbrechen und volle Viewport-Breite nehmen */
+  .cal-embed-breakout {
+    width: 100vw;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    max-width: 100vw;
+  }
+  @media (min-width: 1024px) {
+    /* Desktop: zurück ins Grid, normales Verhalten */
+    .cal-embed-breakout {
+      width: 100%;
+      margin-left: 0;
+      transform: none;
+      max-width: 100%;
+    }
+  }
+
+  .cal-embed-host {
+    width: 100%;
+    min-height: 640px;
+    background: rgba(254, 252, 249, 0.4);
+    overflow: hidden;
+  }
+  .cal-embed-host :global(cal-inline),
+  .cal-embed-host :global(iframe) {
+    width: 100% !important;
+    max-width: 100% !important;
+    border: 0;
+  }
+</style>
+
+<script is:inline define:vars={{ calLink, namespace, elementId }}>
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal;
+      let ar = arguments;
+      if (!cal.loaded) {
+        cal.ns = {};
+        cal.q = cal.q || [];
+        d.head.appendChild(d.createElement('script')).src = A;
+        cal.loaded = true;
+      }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const ns = ar[1];
+        api.q = api.q || [];
+        if (typeof ns === 'string') {
+          cal.ns[ns] = cal.ns[ns] || api;
+          p(cal.ns[ns], ar);
+          p(cal, ['initNamespace', ns]);
+        } else {
+          p(cal, ar);
+        }
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, 'https://app.cal.eu/embed/embed.js', 'init');
+
+  // Layout responsiv: column_view auf mobile (eine Spalte), month_view auf Desktop
+  const mq = window.matchMedia('(min-width: 1024px)');
+  const layoutFor = () => (mq.matches ? 'month_view' : 'column_view');
+
+  Cal('init', namespace, { origin: 'https://www.cal.eu' });
+  Cal.ns[namespace]('inline', {
+    elementOrSelector: '#' + elementId,
+    calLink: calLink,
+    config: { layout: layoutFor() },
+  });
+  Cal.ns[namespace]('ui', {
+    theme: 'light',
+    cssVarsPerTheme: {
+      light: {
+        'cal-brand': '#C4956A',
+        'cal-text': '#4A3728',
+        'cal-text-emphasis': '#4A3728',
+        'cal-bg': '#FEFCF9',
+        'cal-bg-emphasis': '#EDE5D8',
+        'cal-border': '#EDE5D8',
+        'cal-border-default': '#EDE5D8',
+        'cal-text-muted': '#8B6F47',
+      },
+    },
+    hideEventTypeDetails: false,
+    layout: layoutFor(),
+  });
+
+  // Bei Viewport-Wechsel Layout aktualisieren
+  mq.addEventListener('change', () => {
+    Cal.ns[namespace]('ui', { layout: layoutFor() });
+  });
+</script>
