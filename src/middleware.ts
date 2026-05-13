@@ -42,9 +42,10 @@ function isPassthrough(pathname: string): boolean {
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, cookies, rewrite } = context;
 
-  const enabled = (import.meta.env.COMING_SOON_ENABLED || process.env.COMING_SOON_ENABLED) === 'true';
-  if (!enabled) return next();
+  const rawEnabled = process.env.COMING_SOON_ENABLED ?? import.meta.env.COMING_SOON_ENABLED;
+  const enabled = String(rawEnabled ?? '').trim().toLowerCase() === 'true';
 
+  if (!enabled) return next();
   if (isPassthrough(url.pathname)) return next();
 
   // Cookie gesetzt → echte Seite
