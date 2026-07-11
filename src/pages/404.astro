@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+
+// Sprache aus dem Pfad ableiten (404 kann von jeder URL kommen)
+const isEn = Astro.url.pathname.startsWith('/en');
+const lang = isEn ? 'en' : 'de';
+
+const copy = isEn
+  ? {
+      eyebrow: 'Error 404',
+      title: 'Page not found',
+      text: "This page doesn't exist or has moved. Let's get you back on track.",
+      home: 'To the homepage',
+      book: 'Book a session',
+    }
+  : {
+      eyebrow: 'Fehler 404',
+      title: 'Seite nicht gefunden',
+      text: 'Diese Seite existiert nicht oder wurde verschoben. Finde hier zurück.',
+      home: 'Zur Startseite',
+      book: 'Termin buchen',
+    };
+---
+
+<BaseLayout title={copy.title} lang={lang} description={copy.text}>
+  <section class="py-32 px-4">
+    <div class="mx-auto max-w-xl text-center">
+      <p class="text-gold text-sm tracking-[0.3em] uppercase mb-6">{copy.eyebrow}</p>
+      <h1 class="font-heading text-4xl md:text-5xl text-dark-brown italic mb-6">{copy.title}</h1>
+      <p class="text-warm-brown leading-relaxed mb-10">{copy.text}</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button href={isEn ? '/en/' : '/'} variant="primary">{copy.home}</Button>
+        <Button href={isEn ? '/en/book' : '/buchen'} variant="outline">{copy.book}</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

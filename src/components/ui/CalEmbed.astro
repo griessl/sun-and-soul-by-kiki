@@ -87,7 +87,9 @@ const elementId = `cal-embed-${namespace}`;
   Cal.ns[namespace]('inline', {
     elementOrSelector: '#' + elementId,
     calLink: calLink,
-    config: { layout: layoutFor() },
+    // theme im config erzwingen — sonst übernimmt Cal prefers-color-scheme des OS
+    // und zeigt bei Dark-Mode-Nutzern einen dunklen Kalender auf hellem Cream-Layout.
+    config: { layout: layoutFor(), theme: 'light' },
   });
   Cal.ns[namespace]('ui', {
     theme: 'light',

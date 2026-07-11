@@ -2,6 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
+// Prerender at build time: getStaticPaths only works for static routes.
+// Empty `pages` collection → 0 routes generated → unknown slugs fall through to 404.
+export const prerender = true;
+
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
   return pages
