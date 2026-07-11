@@ -10,7 +10,7 @@ const reikiPath = lang === 'en' ? '/en/reiki' : '/reiki';
 
 <section id="reiki" class="py-20 px-4 bg-cream-light/50">
   <div class="mx-auto max-w-4xl text-center">
-    <SectionHeading title={t(lang, 'whatIsReiki.title')} />
+    <SectionHeading title={t(lang, 'whatIsReiki.title')} as={showFull ? 'h1' : 'h2'} />
     <p class="text-warm-brown leading-relaxed mb-6">{t(lang, 'whatIsReiki.intro')}</p>
 
     {showFull ? (
